@@ -4,11 +4,9 @@ class Lampada:
         self.data_fabricacao = data_fabricacao #atributo de instancia
         self.status = status
 
-    def ligar(self):
-        self.status = True
-
-    def desligar(self):
-        self.status = False
+    # cria função/metodo liga/desliga e verifica status com metodos get/set
+    def altera_status(self):
+        self.status = not self.status # se for falso, vira verdade, se for verdade, vira falso
 
     def validar(self):
         if self.status:
