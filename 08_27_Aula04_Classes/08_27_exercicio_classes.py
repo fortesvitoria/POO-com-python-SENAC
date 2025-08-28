@@ -87,10 +87,8 @@ class Porta:
             self.fechadura.chavear(chave)
 
     def destrancar(self, chave):
-        if chave == False:
-            return 'A porta já está destrancada'
-        return 'Destrancada'
-
+        if self.fechadura and self.fechadura.chave_correta(chave):
+            self.fechadura.deschavear(chave)
 
     def converte(self): #Função para exibir outra mensagem ao inves de true ou false. Se for true retorna aberta, caso contrario fechada
         if self.aberta:
@@ -104,10 +102,8 @@ class Porta:
         
         Altura: {self.altura} - Largura: {self.largura}
         Cor: {self.cor} - Status: {self.converte()}
-        
-        Trancada - {self.trancar()}
-        Destrancada - {self.destrancar()}
-    
+        {self.trancar()}
+            
         '''
 
 ################################
