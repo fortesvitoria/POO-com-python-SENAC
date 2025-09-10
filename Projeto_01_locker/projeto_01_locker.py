@@ -29,16 +29,16 @@ class Locker:
         self.status = status
         self.reservadoPor = reservadoPor
 
-    def abrir(self):
+    #def abrir(self):
         #....
 
-    def fechar(self):
+    #def fechar(self):
         #...
 
-    def reservar(self):
+    #def reservar(self):
         #...
 
-    def liberar(self):
+    #def liberar(self):
         #...
 
 
@@ -46,6 +46,10 @@ class Locker:
 #LockerPequeno, LockerMedio, LockerGrande
 #Cada uma pode sobrescrever o metodo reservar() com
 #regras específicas (ex: tempo máximo, tipo de objeto permitido)
+class LockerPequeno(Locker):
+    #def reservar():
+        pass
+
 
 #3. Interface Reservavel
 #Métodos: reservar(), liberar()
@@ -62,10 +66,10 @@ class Usuario:
         self.senha = senha
         self.lockerReservado = lockerReservado
 
-    def reservarLocker(self):
+    #def reservarLocker(self):
         # ....
 
-    def liberarLocker(self):
+    #def liberarLocker(self):
         # ...
 
 
@@ -83,16 +87,16 @@ class SistemaLocker:
         self.listaDeLockers = listaDeLockers
         self.usuariosRegistrados = usuariosRegistrados
 
-    def registrarUsuario(self):
+    #def registrarUsuario(self):
         # ....
 
-    def login(self):
+    #def login(self):
         # ...
 
-    def listarLockersDisponiveis(self):
+    #def listarLockersDisponiveis(self):
         # ...
 
-    def gerenciarReservas(self):
+    #def gerenciarReservas(self):
         # ...
 
 
@@ -114,3 +118,4 @@ Interface gráfica (opcional)
 '''
 
 
+#criando usuario

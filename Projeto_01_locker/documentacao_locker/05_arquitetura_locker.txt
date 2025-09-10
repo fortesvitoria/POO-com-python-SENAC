@@ -1,0 +1,13 @@
+ARQUITETURA COMPLETA:
+
+├── Camada de Interface
+│   └── InterfaceMenus <<interface>>
+├── Camada de Negócio
+│   └── SistemaLocker
+├── Camada de Modelo
+│   ├── Locker (abstrata)
+│   │   ├── LockerPequeno
+│   │   ├── LockerMedio
+│   │   └── LockerGrande
+│   ├── Usuario
+│   └── Administrador
