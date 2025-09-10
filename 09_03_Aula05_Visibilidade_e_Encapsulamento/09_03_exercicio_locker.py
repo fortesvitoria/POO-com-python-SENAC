@@ -1,44 +1,116 @@
-#https://www.winnsen.com/
-# inspiração:  https://www.google.com/search?q=lockers&rlz=1C5CHFA_enBR837BR837&oq=&gs_lcrp=EgZjaHJvbWUqCQgBECMYJxjqAjIJCAAQIxgnGOoCMgkIARAjGCcY6gIyDwgCEC4YJxjHARjqAhjRAzIJCAMQIxgnGOoCMgkIBBAjGCcY6gIyCQgFECMYJxjqAjIJCAYQIxgnGOoCMgkIBxAjGCcY6gLSAQkyOTQ3ajBqMTWoAgiwAgHxBXRxFddWa1PS&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:7c0a56c5,vid:m98zvUA61a8,st:0
+'''
+Escopo Detalhado do Sistema Locker
+------------------------------------------------------
+Objetivo do Sistema:
+Desenvolver uma aplicação que gerencie o uso de lockers (armários) por usuários cadastrados, permitindo reserva, liberação, controle de acesso e manutenção. O sistema deve ser capaz de diferenciar tipos de lockers, controlar permissões de usuários e administradores, e garantir segurança e rastreabilidade das operações.
 
-# Você deverá criar um sistema de locker de entrega de produtos.
-# Lógica: O entregador realiza a entrega de um produto escolhendo a opção ENTREGA.
-#               Informa o tamanho do pacote, o apartamento e finaliza a entrega. O sistema envia uma mensagem ao nome do apartamento cadastrado com uma senha gerada aleatóriamente.
-#
-#.             O morador, ao retirar o produto, informa o apartamento e a senha, o locker "Abre". O morador Finaliza a retirada e o locker é liberado.
-#
-#.             Em configurações deve existir uma opção de cadastro, onde o usuário irá cadastrar o apartamento e uma senha para utilizar o locker.
+Perfis de Usuário:
+Usuário Comum
+Pode se cadastrar e fazer login
+Reservar e liberar lockers disponíveis
+Consultar histórico de uso
+Administrador
+Possui acesso privilegiado
+Pode adicionar, remover ou colocar lockers em manutenção
+Visualiza todos os usuários e reservas
+Gerencia o sistema de forma geral
 
-"""
-Sistema de Locker
+Componentes Principais
+-----------------------------------
+'''
 
-1- Entrega
-    Pequeno, Médio, Grande
-    Apartamento
-    Finalizar a entrega
-    Enviar mensagem de encomenda Disponível com senha(aleatória) para liberar o locker.
+#1. Classe Locker (superclasse)
+#Atributos: id, tamanho, status, reservadoPor
+#Métodos: abrir(), fechar(), reservar(), liberar()
+class Locker:
+    def __init__(self, id, tamanho, status, reservadoPor):
+        self.id = id
+        self.tamanho = tamanho
+        self.status = status
+        self.reservadoPor = reservadoPor
 
-2- Retirar Pedido
-    Apartamento
-    SenhaCadastrada+Senha_Gerada
+    def abrir(self):
+        #....
 
-3- Configurações
-    Cadastrar Morador
-        Apartamento, Senha
-----
-Armario - sistema de locker - produto pronto ou configuravel:
-- Quantidade (quantos total e quantos de cada)
+    def fechar(self):
+        #...
 
-Usuário:
+    def reservar(self):
+        #...
 
-Apartamentos:
-
-Locker:
-- Capacidade: P/M/G
-- Identificação: int
-- Senha
--
+    def liberar(self):
+        #...
 
 
-"""
+#2. Subclasses de Locker
+#LockerPequeno, LockerMedio, LockerGrande
+#Cada uma pode sobrescrever o metodo reservar() com
+#regras específicas (ex: tempo máximo, tipo de objeto permitido)
+
+#3. Interface Reservavel
+#Métodos: reservar(), liberar()
+#Implementada por todas as subclasses de Locker
+
+#4. Classe Usuario
+#Atributos: id, nome, senha, lockerReservado
+#Métodos: reservarLocker(), liberarLocker()
+
+class Usuario:
+    def __init__(self, id, nome, senha, lockerReservado):
+        self.id = id
+        self.nome = nome
+        self.senha = senha
+        self.lockerReservado = lockerReservado
+
+    def reservarLocker(self):
+        # ....
+
+    def liberarLocker(self):
+        # ...
+
+
+
+
+#5. Classe Administrador (herda de Usuario)
+#Métodos adicionais: adicionarLocker(), removerLocker(), colocarEmManutencao()
+
+#6. Classe SistemaLocker
+#Atributos: listaDeLockers, usuariosRegistrados
+#Métodos: registrarUsuario(), login(), listarLockersDisponiveis(), gerenciarReservas()
+
+class SistemaLocker:
+    def __init__(self, listaDeLockers, usuariosRegistrados):
+        self.listaDeLockers = listaDeLockers
+        self.usuariosRegistrados = usuariosRegistrados
+
+    def registrarUsuario(self):
+        # ....
+
+    def login(self):
+        # ...
+
+    def listarLockersDisponiveis(self):
+        # ...
+
+    def gerenciarReservas(self):
+        # ...
+
+
+'''
+Funcionalidades do Sistema:
+------------------------------------------
+Cadastro e autenticação de usuários
+Reserva de lockers com controle de tempo
+Liberação de lockers
+Visualização de status dos lockers
+(livre, ocupado, manutenção)
+Histórico de uso por usuário
+Gerenciamento de lockers (admin)
+Interface de login diferenciada para usuários e administradores
+Persistência de dados (JSON, SQLite ou arquivos)
+Tratamento de exceções (ex: tentativa de reserva duplicada)
+Testes unitários com JUnit (opcional)
+Interface gráfica (opcional)
+'''
+
 
