@@ -1,7 +1,0 @@
-Persistência
--------------------
-Como os dados serão armazenados:
-Arquivos .json ou .txt para salvar usuários e lockers
-Banco de dados simples como SQLite (se quiser ir além)
-Classes responsáveis por leitura/escrita (ex: PersistenciaUsuario, PersistenciaLocker)
-
