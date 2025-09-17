@@ -1,5 +1,3 @@
-from usuario import Usuario
-
 #5. Classe Administrador (herda de Usuario)
 #Métodos adicionais: adicionarLocker(), removerLocker(), colocarEmManutencao()
 class Adminsitrador:
