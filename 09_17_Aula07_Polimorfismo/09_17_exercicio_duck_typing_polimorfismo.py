@@ -1,11 +1,6 @@
 import math
 
-class FiguraGenerica:
-
-    def calcular_area(self):
-        pass
-
-class Retangulo(FiguraGenerica):
+class Retangulo:
     def __init__(self, altura, largura):
         self.altura = altura
         self.largura = largura
@@ -14,7 +9,7 @@ class Retangulo(FiguraGenerica):
         area = self.largura * self.altura
         return round(area,2)
 
-class Triangulo(FiguraGenerica):
+class Triangulo():
     def __init__(self, base, altura):
         self.base = base
         self.altura = altura
@@ -23,7 +18,7 @@ class Triangulo(FiguraGenerica):
         area = (self.base * self.altura) / 2
         return round(area,2)
 
-class Circulo(FiguraGenerica):
+class Circulo():
     def __init__(self, raio):
         self.raio = raio
 
@@ -33,5 +28,8 @@ class Circulo(FiguraGenerica):
 
 lista_formas = [Retangulo(30,10),Retangulo(20,10), Triangulo(10,20),Triangulo(10,30), Circulo(10), Circulo(20)]
 
-for forma in lista_formas:
-    print(f"A área da forma {forma} é: {forma.calcular_area()}")
+def calcular_area(lista_formas):
+    for forma in lista_formas:
+        print(f"A área da forma {forma} é: {forma.calcular_area()}")
+
+calcular_area(lista_formas)
