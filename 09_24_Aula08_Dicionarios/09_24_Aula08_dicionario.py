@@ -1,0 +1,5 @@
+'''
+d = {key: value}
+'''
+
+dicionario = {}
