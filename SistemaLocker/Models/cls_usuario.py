@@ -4,6 +4,17 @@ class Usuario:
         self.__id = usuario_id
         self.__senha = senha
         self.__locker_reservado = None
+        
+    @property
+    def nome(self):
+        return self.__nome
+    
+    @property
+    def login(self):
+        return self.__login
+        
+    def valida_senha(self, senha):
+        return self.__senha == senha
 
 
 class Administrador(Usuario):

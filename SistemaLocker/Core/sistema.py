@@ -24,5 +24,11 @@ class SistemaLocker:
 
     def carregar_dados(self):
         pass
+    
+    def fazer_login(self, login, senha):
+        usuario = self.__usuarios.get(login)
+        if usuario and usuario.valida_senha(senha):
+            return usuario
+        return None
 
 

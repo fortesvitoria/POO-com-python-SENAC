@@ -14,6 +14,7 @@ def main():
 
 # Programa principal
 if __name__ == "__main__":
-    main()
+    sistema = SistemaLocker()
+    menu_principal(sistema)
 
 
