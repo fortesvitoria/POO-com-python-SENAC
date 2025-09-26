@@ -5,16 +5,26 @@ class Usuario:
         self.__senha = senha
         self.__locker_reservado = None
         
+    #@property ajuda a manter o encapsulamento, progetendo os dados, assim acessamos o usuario como usario.nome, e não como usuario.get_not(), o que mantem o código mais seguro. Ela também garante a imutabilidade, tornando os atributos somente para leitura, prevenindo modificações.
     @property
     def nome(self):
         return self.__nome
     
     @property
-    def login(self):
-        return self.__login
+    def id(self):
+        return self.__id
         
     def valida_senha(self, senha):
         return self.__senha == senha
+    
+    #Método para converter o objeto Usuario para um dicionário.
+    def to_dict(self):
+        return {
+            "nome": self.__nome,
+            "id": self.__id,
+            "senha": self.__senha,
+            "locker_reservado": self.__locker_reservado
+        }
 
 
 class Administrador(Usuario):
@@ -22,3 +32,10 @@ class Administrador(Usuario):
         super().__init__(nome, usuario_id, senha)
         self.__is_admin = True
 
+#Método para converte o objeto Administrador para um dicionário (sobrescrevendo o da classe pai)
+    def to_dict(self):
+        # Pega o dicionário da classe pai (Usuario)
+        dados = super().to_dict()
+        # Adiciona a chave específica do admin
+        dados["is_admin"] = True
+        return dados

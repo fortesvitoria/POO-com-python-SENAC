@@ -1,0 +1,55 @@
+{
+    "usuarios": [
+        {
+            "nome": "Vitória",
+            "id": "user01",
+            "senha": "1234",
+            "locker_reservado": null
+        },
+        {
+            "nome": "Ivonei",
+            "id": "user02",
+            "senha": "abcd",
+            "locker_reservado": null
+        },
+        {
+            "nome": "Laura",
+            "id": "admin01",
+            "senha": "admin123",
+            "locker_reservado": null,
+            "is_admin": true
+        },
+        {
+            "nome": "Marta",
+            "id": "user55",
+            "senha": "0101",
+            "locker_reservado": null
+        },
+        {
+            "nome": "Mauricio",
+            "id": "user45",
+            "senha": "2020",
+            "locker_reservado": null
+        }
+    ],
+    "lockers": [
+        {
+            "id": "L1",
+            "tamanho": "P",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L2",
+            "tamanho": "M",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L3",
+            "tamanho": "G",
+            "status": "Disponível",
+            "reservado_por": null
+        }
+    ]
+}
