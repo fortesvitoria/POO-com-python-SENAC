@@ -6,7 +6,7 @@ class Locker:
         self.__reservado_por = None
     
     #Converte o objeto Locker para um dicionário
-    def to_dict(self):
+    def para_dicionario(self):
         return {
             "id": self.__id,
             "tamanho": self.__tamanho,

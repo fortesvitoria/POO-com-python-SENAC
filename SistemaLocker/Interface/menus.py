@@ -1,21 +1,22 @@
-
+# Função de utilidade para imprimir um cabeçalho formatado no console
 def exibir_cabecalho(titulo):
     print("\n" + "=" * 60)
     print(f"  {titulo.center(56)}")
     print("=" * 60)
 
 
-#menu de cadastro:
+#menu de cadastro para usuario:
 def menu_cadastro(sistema):
-    exibir_cabecalho("MENU DE CADASTRO")
+    exibir_cabecalho("MENU DE CADASTRO PARA USUÁRIO")
     
     nome = input("Digite o nome do novo usuário: ").strip()
     # Loop para garantir que o ID não seja vazio
     while True:
+        # Solicita o nome do novo usuário e remove espaços em branco extras do início e do fim com a funcao .strip().
         novo_id = input("Digite o ID (login) para o novo usuário: ").strip()
-        if novo_id:
+        if novo_id: #se não estiver vazio, quebra e continua com o programa
             break
-        print("O ID não pode ser vazio. Tente novamente.")
+        print("O ID não pode ser vazio. Tente novamente.") #se estiver vazio, pede para entrar com um usuário
     
     # Loop para garantir que a senha não seja vazia
     while True:
@@ -24,10 +25,10 @@ def menu_cadastro(sistema):
             break
         print("A senha não pode ser vazia. Tente novamente.")
 
-    # Chama o método de cadastro do sistema
+    # Chama o método de cadastro do objeto sistema
     sistema.cadastrar_usuario(nome, novo_id, senha)
 
-
+# Define o menu principal da aplicação.
 def menu_principal(sistema):
     while True:
         exibir_cabecalho("SISTEMA DE LOCKERS - BEM-VINDO")
@@ -39,21 +40,27 @@ def menu_principal(sistema):
 
         opcao = input("\nDigite sua opção (1-3): ").strip()
 
+        # Se a opção for "1", executa a lógica de login.
         if opcao == "1":  
             login = input("Digite seu login: ").strip()
             senha = input("Digite sua senha: ").strip()
-            
+
+            #chama o método fazer_login do objeto sistema.
             usuario_logado = sistema.fazer_login(login, senha)  
+            #se conseguiu logar, aparece mensafem de bem vindo, junto com nome do usuário
             if usuario_logado:
                 print(f"\nLogin bem-sucedido! Bem-vindo(a), {usuario_logado.nome}.")
-            else:
+            else:#senao, aparece mensagem pedindo para tentar novamente
                 print("\nCredenciais inválidas. Tente novamente.")
+
+        # Se a opção for "2", chama o menu de cadastro do usuario.
         elif opcao == "2":
             menu_cadastro(sistema)
 
+        # Se a opção for "3", encerra o programa.
         elif opcao == "3":
             print("\nEncerrando o sistema.")
             break
-
+        # Se o usuário digitar qualquer outra coisa.
         else:
             print("Opção inválida. Digite 1, 2 ou 3.")

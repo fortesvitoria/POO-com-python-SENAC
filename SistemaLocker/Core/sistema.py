@@ -1,14 +1,15 @@
-import json
+import json # para manipulação de arquivos JSON
 from Models.cls_locker import *
 from Models.cls_usuario import *
 from pathlib import Path #para reconhecer o caminho do arquivo
 
 class SistemaLocker:
     def __init__(self, arquivo_dados="Data/sistema_dados.json"):
+        # Dicionários para armazenar os objetos de usuário e locker em memória, usando o ID como chave 
         self.__usuarios = {} 
         self.__lockers = {} 
         
-         # --- LÓGICA PARA TORNAR O CAMINHO ABSOLUTO ---
+        # --- LÓGICA PARA TORNAR O CAMINHO ABSOLUTO ---
         # 2. Encontra o caminho do arquivo atual (sistema.py)
         caminho_script = Path(__file__).resolve()
         # 3. Sobe um nível para chegar na pasta raiz do projeto (a pasta que contém 'Core' e 'Data')
@@ -19,41 +20,58 @@ class SistemaLocker:
 
         self.carregar_dados() #chamando metodo
 
-
+    #metodos para ler o arquivo JSON e criar objetos na memória
     def carregar_dados(self):
+        # Utilizando o bloco 'try...except' para tratar possíveis erros durante a leitura do arquivo.
         try:
+            # Abre o arquivo JSON em modo de leitura ("r"). 
+            # O "r" é um parâmetro específico e obrigatório da função open() do Python. 
+            #As f: pega esse "objeto de arquivo" e o armazena na varivavel f
             with open(self.__arquivo_dados, "r", encoding="utf-8") as f:
+                # Carrega o conteúdo do arquivo JSON para a variável 'dados'.
                 dados = json.load(f)
 
+                # Percorre cada usuário na lista "usuarios" do JSON.
                 for u in dados["usuarios"]:
+                    #se o usuario tem a chave "is_admin" e se é verdadeira
                     if u.get("is_admin"):
+                        #se for admin, cria uma instancia da classe Adminstrador
                         usuario = Administrador(u["nome"], u["id"], u["senha"])
                     else:
+                        # Caso contrário, cria uma instância da classe Usuario.
                         usuario = Usuario(u["nome"], u["id"], u["senha"])
+
+                    # Adiciona o objeto criado ao dicionário de usuários, usando o ID como chave.    
                     self.__usuarios[u["id"]] = usuario
 
+                # Percorre cada usuário na lista "lockers" do JSON.
                 for l in dados["lockers"]:
+                    #cria instancia da classe Locker
                     locker = Locker(l["id"], l["tamanho"])
+                    #*****************IMPLEMENTAR LOGICA
                     if "reservado_por" in l and l["reservado_por"] is not None:
                         pass
+
+                    # Adiciona o objeto ao dicionário de lockers.
                     self.__lockers[l["id"]] = locker
                 
-                # ADICIONE ESTA LINHA PARA VER O QUE FOI CARREGADO
-                print(f"DEBUG: Dados carregados com sucesso! IDs dos usuários: {list(self.__usuarios.keys())}")
-
+        # Se o arquivo JSON não for encontrado, este erro é capturado.
         except FileNotFoundError:
             print(f"Arquivo {self.__arquivo_dados} não encontrado. Será criado um novo ao salvar.")
+        # Se o arquivo JSON estiver mal formatado, este erro é capturado.
         except json.JSONDecodeError:
             print(f"Erro ao ler o arquivo {self.__arquivo_dados}. Verifique o formato do JSON.")
-
     
     #Metodo para salvar dados
     def salvar_dados(self):
+        # Cria um dicionário que será a estrutura do arquivo JSON.
         dados_para_salvar = {
-            "usuarios": [usuario.to_dict() for usuario in self.__usuarios.values()],
-            "lockers": [locker.to_dict() for locker in self.__lockers.values()]
+            # Usa "list comprehension", que serve como um .append, mas mais compacto, para converter cada objeto Usuario no dicionário __usuarios para um dicionário, usando o metodo "para_dicionario"
+            "usuarios": [usuario.para_dicionario() for usuario in self.__usuarios.values()],
+            "lockers": [locker.para_dicionario() for locker in self.__lockers.values()]
         }
 
+        # Abre o arquivo JSON em modo de escrita ("w - write"), apagando o conteúdo anterior.
         with open(self.__arquivo_dados, "w", encoding="utf-8") as f:
             # json.dump escreve o dicionário no arquivo
             # indent=4 formata o arquivo para ficar legível
@@ -97,7 +115,7 @@ class SistemaLocker:
             return usuario
         return None
     
-    #@property ajuda a manter o encapsulamento, progetendo os dados, assim acessamos o usuario como usario.nome, e não como usuario.get_not(), o que mantem o código mais seguro. Ela também garante a imutabilidade, tornando os atributos somente para leitura, prevenindo modificações.
+    # Property para permitir o acesso (somente leitura) à lista de usuários e lockers de fora da classe.
     @property
     def usuarios(self):
         return self.__usuarios

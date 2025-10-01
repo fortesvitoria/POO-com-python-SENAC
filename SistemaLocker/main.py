@@ -3,7 +3,7 @@ from Interface.menus import *
 
 def main():
         print("Inicializando Sistema de Lockers...")
-        sistema = SistemaLocker() #instancia sistema locker
+        sistema = SistemaLocker() #cria uma instancia sistema locker, que gerencia toda logica do programa
 
         print("Sistema inicializado com sucesso!")
         print("\nUsuários padrão disponíveis:")
@@ -11,10 +11,14 @@ def main():
         print("   Usuário: user02 | Senha: abcd")
         print("   Admin:   admin01 | Senha: admin123")
 
+        #chama o menu principal no documento menus.py e passa a instância do sistema como argumento, 
+        # para que o menu possa interagir com os dados e métodos do sistema.
         menu_principal(sistema)
 
 # Programa principal
 if __name__ == "__main__":
-    sistema = SistemaLocker()
+    sistema = SistemaLocker()# Cria uma nova instância do sistema.
+    # Inicia o menu principal, que traz a interação com o usuário.
     menu_principal(sistema)
+
 

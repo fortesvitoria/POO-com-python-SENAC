@@ -14,11 +14,12 @@ class Usuario:
     def id(self):
         return self.__id
         
+    #Método para verificar se a senha está correta. Retorna True se forem iguais, e False caso contrário.
     def valida_senha(self, senha):
         return self.__senha == senha
     
     #Método para converter o objeto Usuario para um dicionário.
-    def to_dict(self):
+    def para_dicionario(self):
         return {
             "nome": self.__nome,
             "id": self.__id,
@@ -26,16 +27,16 @@ class Usuario:
             "locker_reservado": self.__locker_reservado
         }
 
-
+# A classe Administrador herda da classe Usuario. Herda todas as caracteristicas e possui nova: is_admin, que inicia como true
 class Administrador(Usuario):
     def __init__(self, nome, usuario_id, senha):
         super().__init__(nome, usuario_id, senha)
         self.__is_admin = True
 
-#Método para converte o objeto Administrador para um dicionário (sobrescrevendo o da classe pai)
-    def to_dict(self):
+#Método para converter o objeto Administrador para um dicionário (sobrescrevendo o da classe pai)
+    def para_dicionario(self):
         # Pega o dicionário da classe pai (Usuario)
-        dados = super().to_dict()
+        dados = super().para_dicionario()
         # Adiciona a chave específica do admin
         dados["is_admin"] = True
         return dados
