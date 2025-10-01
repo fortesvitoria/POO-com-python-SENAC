@@ -26,10 +26,6 @@ class Usuario:
     # Método para definir qual locker foi reservado pelo usuário
     def definir_locker_reservado(self, locker_id):
         self.__locker_reservado = locker_id
-
-    # Método para limpar a reserva do lado do usuário
-    def liberar_locker_reservado(self):
-        self.__locker_reservado = None
     
     #Método para converter o objeto Usuario para um dicionário.
     def para_dicionario(self):

@@ -11,10 +11,9 @@ def menu_usuario_logado(sistema, usuario):
         exibir_cabecalho(f"ÁREA DO USUÁRIO - Olá, {usuario.nome}!")
         print("1. Reservar um Locker")
         print("2. Ver meu locker reservado")
-        print("3. Liberar meu Locker")
-        print("4. Voltar ao menu principal (Logout)")
+        print("3. Voltar ao menu principal")
         
-        opcao = input("\nDigite sua opção (1-4): ").strip()
+        opcao = input("\nDigite sua opção (1-3): ").strip()
 
         if opcao == "1":
             # Mostra os lockers disponíveis para o usuário
@@ -40,60 +39,12 @@ def menu_usuario_logado(sistema, usuario):
                 print("\nVocê não possui nenhum locker reservado.")
         
         elif opcao == "3":
-            sistema.liberar_locker(usuario)
-
-        elif opcao == "4":
             print("\nFazendo logout...")
-            break
+            break # Quebra o loop e volta para o menu principal
         
         else:
             print("Opção inválida. Tente novamente.")
 
-
-# menu para administrador logado
-def menu_admin_logado(sistema, admin):
-    while True:
-        exibir_cabecalho(f"PAINEL ADMINISTRATIVO - Olá, {admin.nome}!")
-        print("1. Adicionar Locker")
-        print("2. Remover Locker")
-        print("3. Colocar Locker em Manutenção")
-        print("4. Ver Todos os Lockers")
-        print("5. Voltar ao menu principal (Logout)")
-        
-        opcao = input("\nDigite sua opção (1-5): ").strip()
-
-        if opcao == "1":
-            locker_id = input("Digite o ID para o novo locker: ").strip().upper()
-            tamanho = input("Digite o tamanho (P, M ou G): ").strip().upper()
-            sistema.adicionar_locker(locker_id, tamanho)
-
-        elif opcao == "2":
-            locker_id = input("Digite o ID do locker a ser removido: ").strip().upper()
-            sistema.remover_locker(locker_id)
-
-        elif opcao == "3":
-            locker_id = input("Digite o ID do locker para colocar em manutenção: ").strip().upper()
-            sistema.colocar_em_manutencao(locker_id)
-
-        elif opcao == "4":
-            exibir_cabecalho("Status de Todos os Lockers")
-            if not sistema.lockers:
-                print("Nenhum locker cadastrado no sistema.")
-            else:
-                # Ordena os lockers por ID para uma exibição consistente
-                for locker_id in sorted(sistema.lockers.keys()):
-                    locker = sistema.lockers[locker_id]
-                    info = f"ID: {locker.id:<5} | Tamanho: {locker.tamanho:<2} | Status: {locker.status:<12}"
-                    if locker.status == "Ocupado":
-                        info += f" | Reservado por: {locker.reservado_por}"
-                    print(info)
-        
-        elif opcao == "5":
-            print("\nFazendo logout...")
-            break
-        
-        else:
-            print("Opção inválida. Tente novamente.")
 
 #menu de cadastro para usuario:
 def menu_cadastro(sistema):

@@ -9,7 +9,7 @@ class SistemaLocker:
         self.__usuarios = {} 
         self.__lockers = {} 
         
-        # Lógica para encontrar o caminho absoluto do arquivo de dados
+        # --- LÓGICA PARA TORNAR O CAMINHO ABSOLUTO ---
         # 2. Encontra o caminho do arquivo atual (sistema.py)
         caminho_script = Path(__file__).resolve()
         # 3. Sobe um nível para chegar na pasta raiz do projeto (a pasta que contém 'Core' e 'Data')
@@ -26,7 +26,7 @@ class SistemaLocker:
         try:
             # Abre o arquivo JSON em modo de leitura ("r"). 
             # O "r" é um parâmetro específico e obrigatório da função open() do Python. 
-            #As f: pega esse "objeto de arquivo" e o armazena na varivavel f(file)
+            #As f: pega esse "objeto de arquivo" e o armazena na varivavel f
             with open(self.__arquivo_dados, "r", encoding="utf-8") as f:
                 # Carrega o conteúdo do arquivo JSON para a variável 'dados'.
                 dados = json.load(f)
@@ -50,8 +50,6 @@ class SistemaLocker:
                     locker = Locker(l["id"], l["tamanho"])
                     if l.get("status") == "Ocupado" and l.get("reservado_por"):
                         locker.reservar(l["reservado_por"]) 
-                    elif l.get("status") == "Manutenção":
-                        locker.definir_status("Manutenção")
                     self.__lockers[l["id"]] = locker
 
                     # Adiciona o objeto ao dicionário de lockers.
@@ -96,14 +94,20 @@ class SistemaLocker:
         print("Usuário cadastrado com sucesso!")
         return True
     
-    #Método para login
-    def fazer_login(self, login, senha):
-        usuario = self.__usuarios.get(login)
-        if usuario and usuario.valida_senha(senha):
-            return usuario
-        return None
+    #Método para cadastrar locker
+    def cadastrar_locker(self, locker_id, tamanho):
+        #verifica se já existe
+        if locker_id in self.__lockers:
+            print("Erro: Já existe um locker com este ID.")
+            return False
+        
+        #Cria novo locker
+        novo_locker = Locker(locker_id, tamanho)
+        self.__lockers[locker_id] = novo_locker
+        self.salvar_dados()
+        print("Locker cadastrado com sucesso!")
+        return True
     
-
     #Método para reservar locker
     def reservar_locker(self, usuario, locker_id):
         # 1. Verifica se o usuário já tem uma reserva
@@ -131,78 +135,13 @@ class SistemaLocker:
 
         print(f"Erro: Não foi possível reservar o locker {locker_id}.")
         return False
-    
-     # --- FUNÇÃO DE USUÁRIO ---
-    def liberar_locker(self, usuario):
-        locker_id = usuario.locker_reservado
-        if not locker_id:
-            print("\nVocê não possui nenhum locker reservado para liberar.")
-            return False
 
-        locker = self.__lockers.get(locker_id)
-        if locker:
-            locker.liberar()
-            usuario.liberar_locker_reservado()
-            self.salvar_dados()
-            print(f"\nLocker {locker_id} liberado com sucesso!")
-            return True
-        else:
-            print(f"\nErro de inconsistência: O locker {locker_id} não foi encontrado.")
-            usuario.liberar_locker_reservado()
-            self.salvar_dados()
-            return False
-
-    # --- FUNÇÕES DE ADMINISTRADOR ---
-    def adicionar_locker(self, locker_id, tamanho):
-        if not locker_id or not tamanho:
-            print("\nErro: ID e Tamanho não podem ser vazios.")
-            return False
-        if locker_id in self.__lockers:
-            print("\nErro: Já existe um locker com este ID.")
-            return False
-        
-        tamanhos_validos = ["P", "M", "G"]
-        if tamanho.upper() not in tamanhos_validos:
-            print(f"\nErro: Tamanho '{tamanho}' inválido. Use: {', '.join(tamanhos_validos)}")
-            return False
-        
-        novo_locker = Locker(locker_id, tamanho.upper())
-        self.__lockers[locker_id] = novo_locker
-        self.salvar_dados()
-        print(f"\nLocker {locker_id} adicionado com sucesso!")
-        return True
-
-    def remover_locker(self, locker_id):
-        locker = self.__lockers.get(locker_id)
-        if not locker:
-            print("\nErro: Locker não encontrado.")
-            return False
-        
-        if locker.status == "Ocupado":
-            print(f"\nErro: Locker {locker_id} está ocupado e não pode ser removido.")
-            return False
-
-        del self.__lockers[locker_id]
-        self.salvar_dados()
-        print(f"\nLocker {locker_id} removido com sucesso!")
-        return True
-
-    def colocar_em_manutencao(self, locker_id):
-        locker = self.__lockers.get(locker_id)
-        if not locker:
-            print("\nErro: Locker não encontrado.")
-            return False
-
-        if locker.status == "Ocupado":
-            print(f"\nErro: Não é possível colocar um locker ocupado em manutenção.")
-            return False
-        
-        if locker.definir_status("Manutenção"):
-            self.salvar_dados()
-            print(f"\nLocker {locker_id} agora está em Manutenção.")
-            return True
-        return False
-
+    #Método para login
+    def fazer_login(self, login, senha):
+        usuario = self.__usuarios.get(login)
+        if usuario and usuario.valida_senha(senha):
+            return usuario
+        return None
     
     # Property para permitir o acesso (somente leitura) à lista de usuários e lockers de fora da classe.
     @property

@@ -4,7 +4,7 @@
             "nome": "Vitória",
             "id": "user01",
             "senha": "1234",
-            "locker_reservado": null
+            "locker_reservado": "L2"
         },
         {
             "nome": "Ivonei",
@@ -42,8 +42,8 @@
         {
             "id": "L2",
             "tamanho": "M",
-            "status": "Disponível",
-            "reservado_por": "null"
+            "status": "Ocupado",
+            "reservado_por": "user01"
         },
         {
             "id": "L3",
