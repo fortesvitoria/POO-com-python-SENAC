@@ -50,34 +50,39 @@ class Estufa:
         if 15 <= valor <= 35:
             self.__temperatura = valor
         else:
-            raise ValueError (f"Temperatura {valor}C está fora do intervalo.")
+            raise ValueError (f"Temperatura {valor}°C está fora do intervalo permitido (15°C a 35°C).")
 
     def status (self):
         if 20 <= self.__temperatura <= 30:
             self.__alertas_temperatura = 0
-            return f"Temperatura de {self.__temperatura}C, está ideal."
+            return f"Temperatura de {self.__temperatura}°C, está ideal (20°C a 30°C)."
         else:
             self.__alertas_temperatura += 1
-            return f"Temperatura {self.__temperatura}C está fora do ideal."
+            return f"Temperatura {self.__temperatura}°C está fora do ideal."
 
     def alerta(self):
         if self.__alertas_temperatura >= 3:
-            return f"ALERTA!!! Temperatura {self.__temperatura}C está fora do ideal por 3 vezes consecutivas!"
+            return f"ALERTA!!! Temperatura {self.__temperatura}°C fora do ideal por 3 vezes consecutivas!"
 
 class Sensor:
-    def __init__(self):
-        self.__value = random.randint(0,50)
+    def ler_temperatura(self):
+        return random.randint(10,40)
     
-    @property
-    def value(self):
-        return self.__value
 
 def simular_estufa():
-    s = Sensor()
-    n = Estufa(s.value)
+    sensor = Sensor()
+    estufa = Estufa()
 
+    for i in range (10):
+        try: 
+            leitura = sensor.ler_temperatura()
+            estufa.temperatura = leitura
+            print(f'Leitura {i+1}: {leitura}°C.')
+            print('\n\tStatus: ',estufa.status() )
+            alerta = estufa.alerta()
+            if alerta:
+                print(alerta)
+        except ValueError as e:
+            print(f'Erro na leitura {i+1}: {e}')
 
-for i in range (10):
-    try: 
-        leitura = sensor.ler_temperatura()
-        estufa.temperatura = leitura
+simular_estufa()

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Locker</title>
+    <link rel="stylesheet" href="../Static/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Sistema Locker</h1>
+        <h3>Olá, Administrador</h3>
+        <p><a href="">Logout</a></p>
+    </header>
+    <main>
+        <form>
+            <label for="">Adicionar locker</label>
+            <input type="text" id="id" name="id" placeholder="ID (ex: L1)">
+            <input type="text" id="tamanho" name="tamanho" placeholder="Tam (P/M/G)">
+
+            <button type="submit" name="enviar" class="btn">Adicionar</button>
+        </form>
+
+        <form>
+            <label for="">Remover Locker</label>
+            <input type="text" id="id-remove" name="id-remove" placeholder="ID do Locker">
+
+            <button type="submit" name="enviar" class="btn">Remover</button>
+        </form>
+
+        <form>
+            <label for="">Locker em Manutenção</label>
+            <input type="text" id="id-manutencao" name="id-manutencao" placeholder="ID do Locker">
+
+            <button type="submit" name="enviar" class="btn">Manutenção</button>
+        </form>
+
+        <div>
+            <h3>Status de todos os lockers</h3>
+        </div>
+
+
+    </main>
+    <footer>
+        <p>© 2025 Vitória Fortes</p>
+    </footer>
+</body>
+
+</html>
