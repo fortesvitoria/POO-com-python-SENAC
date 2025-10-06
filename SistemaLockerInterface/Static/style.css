@@ -5,13 +5,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
-    --gradiente-azul: linear-gradient(288deg,rgba(0, 73, 105, 1) 28%, rgba(25, 142, 166, 1) 42%, rgba(87, 199, 133, 1) 54%, rgba(72, 185, 141, 1) 57%, rgba(25, 142, 166, 1) 67%, rgba(0, 73, 105, 1) 81%);
+    --gradiente-azul: linear-gradient(288deg, rgba(0, 73, 105, 1) 28%, rgba(25, 142, 166, 1) 42%, rgba(87, 199, 133, 1) 54%, rgba(72, 185, 141, 1) 57%, rgba(25, 142, 166, 1) 67%, rgba(0, 73, 105, 1) 81%);
     --verde-agua-claro: #defaf3;
     --azul-escuro: #001d48;
     --verde-agua: #90dfe2;
     --off-white: #eaeaea;
     --preto: #0e0f10af;
     --sombra: #00000056;
+    --erro: #a53535;
     --fonte-titulo: "Questrial", sans-serif;
     --fonte-corpo: "Montserrat", sans-serif;
 }
@@ -31,10 +32,35 @@ main {
     background: var(--sombra);
     box-shadow: var(--sombra) 2px 2px 5px;
     border-radius: 20px;
-    width: 250px;
     padding: 80px 25px;
     margin-bottom: 150px;
+    align-content: center;
+    width: 280px;
 }
+
+.adm{
+    width: 480px!important;
+}
+
+.wrapper {
+  display: grid;     
+  grid-template-columns: 1fr 1fr; 
+  gap: 10px;        
+  justify-content: center;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container1, .container2 {
+  padding: 0 20px;
+  width: 220px;
+}
+
+.container1 {
+    border-right: solid 2px var(--sombra);
+}
+
 
 form {
     display: flex;
@@ -61,10 +87,11 @@ label {
     padding: 0.5em;
 }
 
-input, .btn {
+input,
+.btn {
     border-radius: 100px;
     border-style: none;
-    font-family:  var(--fonte-corpo);
+    font-family: var(--fonte-corpo);
     padding: 0.5em;
     margin-bottom: 25px;
     font-size: 16px;
@@ -79,14 +106,8 @@ input, .btn {
 }
 
 .btn:hover {
-box-shadow: var(--sombra) 2px 2px 15px;
+    box-shadow: var(--sombra) 2px 2px 15px;
 }
-
-/* .resultado {
-    background: var(--preto);
-    border-radius: 20px;
-    padding: 25px 20px;
-} */
 
 span {
     font-weight: 600;
@@ -95,4 +116,79 @@ span {
 footer {
     font-size: 14px;
     text-shadow: var(--sombra) 2px 2px 5px;
+}
+
+.resultado {
+    background: var(--sombra);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.resultado ul {
+    list-style: none;
+    padding: 0;
+}
+
+.lista-lockers {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lista-lockers h4,
+.lista-lockers h3 {
+    text-align: center;
+}
+
+.lista-lockers ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.lista-lockers li {
+    padding: 5px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid var(--preto);
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--sombra);
+}
+
+th,
+td {
+    border: 1px solid var(--preto);
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: var(--preto);
+}
+
+.flash {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    text-align: center;
+    color: var(--off-white); /* Cor do texto branca para todas as mensagens */
+    font-weight: 500;
+}
+
+/* Categoria 'danger' para erros (fundo vermelho) */
+.flash.danger {
+    background-color: var(--erro); /* Um tom de vermelho escuro */
+}
+
+.flash.success {
+    background-color: var(--sombra);
 }

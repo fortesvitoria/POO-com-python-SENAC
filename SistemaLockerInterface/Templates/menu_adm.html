@@ -5,43 +5,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Locker</title>
-    <link rel="stylesheet" href="../Static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
     <header>
         <h1>Sistema Locker</h1>
-        <h3>Olá, Administrador</h3>
-        <p><a href="">Logout</a></p>
+        <h3>Olá, Administrador {{ admin.nome }}</h3>
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
     </header>
-    <main>
-        <form>
-            <label for="">Adicionar locker</label>
-            <input type="text" id="id" name="id" placeholder="ID (ex: L1)">
-            <input type="text" id="tamanho" name="tamanho" placeholder="Tam (P/M/G)">
+    <main class="adm">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="messages-container">
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div class="wrapper">
+            <div class="container1">
+                <h3>Adicionar/remover</h3>
+                <form action="{{ url_for('add_locker') }}" method="post">
+                    <label for="">Adicionar locker</label>
+                    <input type="text" id="id" name="id" placeholder="ID (ex: L4)" required>
+                    <input type="text" id="tamanho" name="tamanho" placeholder="Tam (P/M/G)" required>
+                    <button type="submit" class="btn">Adicionar</button>
+                </form>
 
-            <button type="submit" name="enviar" class="btn">Adicionar</button>
-        </form>
+                <form action="{{ url_for('remove_locker') }}" method="post">
+                    <label for="">Remover Locker</label>
+                    <input type="text" id="id-remove" name="id-remove" placeholder="ID do Locker" required>
+                    <button type="submit" class="btn">Remover</button>
+                </form>
+            </div>
+            <div class="container2">
+                <h3>Manutenção</h3>
+                <form action="{{ url_for('manutencao_locker') }}" method="post">
+                    <label for="">Locker em Manutenção</label>
+                    <input type="text" id="id-manutencao" name="id-manutencao" placeholder="ID do Locker" required>
+                    <button type="submit" class="btn">Manutenção</button>
+                </form>
 
-        <form>
-            <label for="">Remover Locker</label>
-            <input type="text" id="id-remove" name="id-remove" placeholder="ID do Locker">
-
-            <button type="submit" name="enviar" class="btn">Remover</button>
-        </form>
-
-        <form>
-            <label for="">Locker em Manutenção</label>
-            <input type="text" id="id-manutencao" name="id-manutencao" placeholder="ID do Locker">
-
-            <button type="submit" name="enviar" class="btn">Manutenção</button>
-        </form>
-
-        <div>
-            <h3>Status de todos os lockers</h3>
+                <form action="{{ url_for('tirar_de_manutencao') }}" method="post">
+                    <label for="">Tirar de Manutenção</label>
+                    <input type="text" id="id-disponivel" name="id-disponivel" placeholder="ID do Locker" required>
+                    <button type="submit" class="btn">Tornar Disponível</button>
+                </form>
+            </div>
         </div>
 
-
+        <div class="lista-lockers">
+            <h3>Status de todos os lockers</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tamanho</th>
+                        <th>Status</th>
+                        <th>Reservado por</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for locker_id, locker in lockers.items() %}
+                    <tr>
+                        <td>{{ locker.id }}</td>
+                        <td>{{ locker.tamanho }}</td>
+                        <td>{{ locker.status }}</td>
+                        <td>{{ locker.reservado_por or 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </main>
     <footer>
         <p>© 2025 Vitória Fortes</p>

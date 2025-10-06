@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Locker</title>
-    <link rel="stylesheet" href="../Static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
@@ -14,7 +14,17 @@
         <h3>Cadastro de usuário</h3>
     </header>
     <main>
-        <form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="messages-container">
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('registro') }}" method="post">
             <label for="nome">Nome Completo</label>
             <input type="text" id="nome" name="nome" required>
 
@@ -22,12 +32,11 @@
             <input type="text" id="login" name="login" required>
 
             <label for="senha">Senha</label>
-            <input type="text" id="senha" name="senha" required>
+            <input type="password" id="senha" name="senha" required>
 
-            <button type="submit" name="enviar" class="btn">Entrar</button>
+            <button type="submit" name="enviar" class="btn">Cadastrar</button>
 
-            <p>Já tem uma conta? <a href=""><span><br>Faça o login</span></a></p>
-            
+            <p>Já tem uma conta? <a href="{{ url_for('login') }}"><span><br>Faça o login</span></a></p>
         </form>
     </main>
     <footer>

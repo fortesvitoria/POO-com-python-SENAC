@@ -5,23 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema Locker</title>
-    <link rel="stylesheet" href="../Static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
     <header>
         <h1>Sistema Locker</h1>
-        <h3>Olá, Usuário</h3>
-        <p><a href="">Logout</a></p>
+        <h3>Olá, {{ usuario.nome }}</h3>
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
     </header>
     <main>
-        <div><button type="submit" name="enviar" class="btn">Liberar</button></div>
-        <form>
-            <label for="">Reservar um Locker</label>
-            <input type="text" id="id-reserva" name="id-reserva" placeholder="ID do Locker">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="messages-container">
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
 
-            <button type="submit" name="enviar" class="btn">Reservar Locker</button>
+        <div class="resultado">
+            {% if usuario.locker_reservado %}
+            <p>Você possui o locker <span>{{ usuario.locker_reservado }}</span> reservado.</p>
+            {% else %}
+            <p>Você não possui lockers reservados.</p>
+            {% endif %}
+        </div>
+
+        {% if usuario.locker_reservado %}
+        <form action="{{ url_for('liberar_locker') }}" method="post">
+            <button type="submit" class="btn">Liberar Meu Locker</button>
         </form>
+        {% else %}
+        <form action="{{ url_for('reservar_locker') }}" method="post">
+            <label for="id-reserva">Reservar um Locker</label>
+            <input type="text" id="id-reserva" name="id-reserva" placeholder="ID do Locker" required>
+            <button type="submit" class="btn">Reservar Locker</button>
+        </form>
+        {% endif %}
+
+        <div class="lista-lockers">
+            <h4>Lockers Disponíveis:</h4>
+            <ul>
+                {% for locker in lockers %}
+                {% if locker.status == 'Disponível' %}
+                <li><span>{{ locker.id }}</span> (Tamanho: {{ locker.tamanho }})</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
 
     </main>
     <footer>

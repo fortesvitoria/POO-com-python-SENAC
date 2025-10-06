@@ -1,7 +1,7 @@
-import json # para manipulação de arquivos JSON
+import json 
 from Models.cls_locker import *
 from Models.cls_usuario import *
-from pathlib import Path #para reconhecer o caminho do arquivo
+from pathlib import Path 
 
 class SistemaLocker:
     def __init__(self, arquivo_dados="Data/sistema_dados.json"):
@@ -16,51 +16,40 @@ class SistemaLocker:
         caminho_raiz = caminho_script.parent.parent
         # 4. Monta o caminho completo e seguro para o arquivo de dados
         self.__arquivo_dados = caminho_raiz / arquivo_dados
-        # --- FIM DA LÓGICA ---
+       
 
         self.carregar_dados() #chamando metodo
 
     #metodos para ler o arquivo JSON e criar objetos na memória
     def carregar_dados(self):
-        # Utilizando o bloco 'try...except' para tratar possíveis erros durante a leitura do arquivo.
         try:
-            # Abre o arquivo JSON em modo de leitura ("r"). 
-            # O "r" é um parâmetro específico e obrigatório da função open() do Python. 
-            #As f: pega esse "objeto de arquivo" e o armazena na varivavel f(file)
             with open(self.__arquivo_dados, "r", encoding="utf-8") as f:
-                # Carrega o conteúdo do arquivo JSON para a variável 'dados'.
                 dados = json.load(f)
 
-                # Percorre cada usuário na lista "usuarios" do JSON.
-                for u in dados["usuarios"]:
-                    #se o usuario tem a chave "is_admin" e se é verdadeira
-                    if u.get("is_admin"):
-                        #se for admin, cria uma instancia da classe Adminstrador
-                        usuario = Administrador(u["nome"], u["id"], u["senha"])
-                    else:
-                        # Caso contrário, cria uma instância da classe Usuario.
-                        usuario = Usuario(u["nome"], u["id"], u["senha"])
+            for u in dados["usuarios"]:
+                if u.get("is_admin"):
+                    usuario = Administrador(u["nome"], u["id"], u["senha"])
+                else:
+                    usuario = Usuario(u["nome"], u["id"], u["senha"])
 
-                    # Adiciona o objeto criado ao dicionário de usuários, usando o ID como chave.    
-                    self.__usuarios[u["id"]] = usuario
+                # Verificamos se o usuário tem um 'locker_reservado' no arquivo JSON.
+                # O método .get() é usado para evitar erros caso a chave não exista.
+                if u.get("locker_reservado"):
+                    # Se tiver, chamamos o método para definir a reserva no objeto do usuário.
+                    usuario.definir_locker_reservado(u["locker_reservado"])
 
-                # Percorre cada usuário na lista "lockers" do JSON.
-                for l in dados["lockers"]:
-                    #cria instancia da classe Locker
-                    locker = Locker(l["id"], l["tamanho"])
-                    if l.get("status") == "Ocupado" and l.get("reservado_por"):
-                        locker.reservar(l["reservado_por"]) 
-                    elif l.get("status") == "Manutenção":
-                        locker.definir_status("Manutenção")
-                    self.__lockers[l["id"]] = locker
+                self.__usuarios[u["id"]] = usuario
 
-                    # Adiciona o objeto ao dicionário de lockers.
-                    self.__lockers[l["id"]] = locker
-                
-        # Se o arquivo JSON não for encontrado, este erro é capturado.
+            for l in dados["lockers"]:
+                locker = Locker(l["id"], l["tamanho"])
+                if l.get("status") == "Ocupado" and l.get("reservado_por"):
+                    locker.reservar(l["reservado_por"])
+                elif l.get("status") == "Manutenção":
+                    locker.definir_status("Manutenção")
+                self.__lockers[l["id"]] = locker
+
         except FileNotFoundError:
             print(f"Arquivo {self.__arquivo_dados} não encontrado. Será criado um novo ao salvar.")
-        # Se o arquivo JSON estiver mal formatado, este erro é capturado.
         except json.JSONDecodeError:
             print(f"Erro ao ler o arquivo {self.__arquivo_dados}. Verifique o formato do JSON.")
     
@@ -68,7 +57,7 @@ class SistemaLocker:
     def salvar_dados(self):
         # Cria um dicionário que será a estrutura do arquivo JSON.
         dados_para_salvar = {
-            # Usa "list comprehension", que serve como um .append, mas mais compacto, para converter cada objeto Usuario no dicionário __usuarios para um dicionário, usando o metodo "para_dicionario"
+            # Usa "list comprehension", que serve como um .append, mas mais compacto, para converter cada objeto Usuario para um dicionário, usando o metodo "para_dicionario"
             "usuarios": [usuario.para_dicionario() for usuario in self.__usuarios.values()],
             "lockers": [locker.para_dicionario() for locker in self.__lockers.values()]
         }
@@ -132,7 +121,7 @@ class SistemaLocker:
         print(f"Erro: Não foi possível reservar o locker {locker_id}.")
         return False
     
-     # --- FUNÇÃO DE USUÁRIO ---
+     #Funções de usuário
     def liberar_locker(self, usuario):
         locker_id = usuario.locker_reservado
         if not locker_id:
@@ -152,7 +141,7 @@ class SistemaLocker:
             self.salvar_dados()
             return False
 
-    # --- FUNÇÕES DE ADMINISTRADOR ---
+    #Funções de administrador
     def adicionar_locker(self, locker_id, tamanho):
         if not locker_id or not tamanho:
             print("\nErro: ID e Tamanho não podem ser vazios.")
@@ -202,7 +191,29 @@ class SistemaLocker:
             print(f"\nLocker {locker_id} agora está em Manutenção.")
             return True
         return False
+    
+    def tirar_de_manutencao(self, locker_id):
+        # 1. Busca o locker pelo ID fornecido
+        locker = self.__lockers.get(locker_id)
+        
+        # 2. Valida se o locker realmente existe
+        if not locker:
+            print("\nErro: Locker não encontrado.")
+            return False
 
+        # 3. Valida se o locker está em manutenção
+        if locker.status != "Manutenção":
+            print(f"\nErro: O Locker {locker_id} não está em manutenção.")
+            return False
+
+        # 4. Se tudo estiver correto, altera o status para "Disponível"
+        #    O método definir_status já existe na classe Locker.
+        if locker.definir_status("Disponível"):
+            self.salvar_dados() # Salva a alteração no arquivo JSON
+            print(f"\nLocker {locker_id} agora está Disponível.")
+            return True
+        
+        return False
     
     # Property para permitir o acesso (somente leitura) à lista de usuários e lockers de fora da classe.
     @property

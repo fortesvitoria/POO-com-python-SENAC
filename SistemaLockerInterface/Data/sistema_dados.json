@@ -30,24 +30,36 @@
             "id": "user45",
             "senha": "2020",
             "locker_reservado": null
+        },
+        {
+            "nome": "Joao",
+            "id": "user03",
+            "senha": "0303",
+            "locker_reservado": "L1"
         }
     ],
     "lockers": [
         {
             "id": "L1",
             "tamanho": "P",
-            "status": "Disponível",
-            "reservado_por": null
+            "status": "Ocupado",
+            "reservado_por": "user03"
         },
         {
             "id": "L2",
             "tamanho": "M",
             "status": "Disponível",
-            "reservado_por": "null"
+            "reservado_por": null
         },
         {
             "id": "L3",
             "tamanho": "G",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L4",
+            "tamanho": "P",
             "status": "Disponível",
             "reservado_por": null
         }
