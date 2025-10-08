@@ -49,9 +49,9 @@
             <h4>Lockers Disponíveis:</h4>
             <ul>
                 {% for locker in lockers %}
-                {% if locker.status == 'Disponível' %}
                 <li><span>{{ locker.id }}</span> (Tamanho: {{ locker.tamanho }})</li>
-                {% endif %}
+                {% else %}
+                <li>Não há lockers disponíveis.</li>
                 {% endfor %}
             </ul>
         </div>

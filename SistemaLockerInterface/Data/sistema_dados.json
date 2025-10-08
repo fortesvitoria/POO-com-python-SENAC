@@ -48,19 +48,13 @@
         {
             "id": "L2",
             "tamanho": "M",
-            "status": "Disponível",
+            "status": "Manutenção",
             "reservado_por": null
         },
         {
             "id": "L3",
             "tamanho": "G",
-            "status": "Disponível",
-            "reservado_por": null
-        },
-        {
-            "id": "L4",
-            "tamanho": "P",
-            "status": "Disponível",
+            "status": "Manutenção",
             "reservado_por": null
         }
     ]

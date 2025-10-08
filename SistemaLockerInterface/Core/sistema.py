@@ -92,7 +92,6 @@ class SistemaLocker:
             return usuario
         return None
     
-
     #Método para reservar locker
     def reservar_locker(self, usuario, locker_id):
         # 1. Verifica se o usuário já tem uma reserva

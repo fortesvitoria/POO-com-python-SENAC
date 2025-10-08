@@ -67,7 +67,9 @@ def menu_usuario():
     usuario_id = session['usuario_id']
     usuario = sistema.usuarios.get(usuario_id)
 
-    return render_template('menu_usuario.html', usuario=usuario, lockers=sistema.lockers.values())
+    lockers_disponiveis = [l for l in sistema.lockers.values()  if l.status == 'Disponível']
+
+    return render_template('menu_usuario.html', usuario=usuario, lockers=lockers_disponiveis)
 
 # 8. Rota para Reservar Locker
 @app.route('/reservar_locker', methods=['POST'])

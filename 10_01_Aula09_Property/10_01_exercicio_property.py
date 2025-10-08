@@ -55,7 +55,7 @@ class Estufa:
         return self.__temperatura
     
     def status (self):
-        if self.__temperatura >= 20 and self.__temperatura <= 30:
+        if 20 <= self.__temperatura <= 30:
             print(f"Temperatura de {self.__temperatura}C, está ideal.")
         else:
             print(f"Temperatura {self.__temperatura}C está fora do ideal.")
