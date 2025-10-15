@@ -116,6 +116,18 @@ span {
 footer {
     font-size: 14px;
     text-shadow: var(--sombra) 2px 2px 5px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 20px;
+    border-radius: 100%;
+    margin-left: 15px;
+}
+
+.icon:hover{
+    box-shadow: var(--sombra) 2px 2px 15px;
 }
 
 .resultado {
@@ -180,13 +192,12 @@ th {
     margin-bottom: 15px;
     border-radius: 10px;
     text-align: center;
-    color: var(--off-white); /* Cor do texto branca para todas as mensagens */
+    color: var(--off-white);
     font-weight: 500;
 }
 
-/* Categoria 'danger' para erros (fundo vermelho) */
 .flash.danger {
-    background-color: var(--erro); /* Um tom de vermelho escuro */
+    background-color: var(--erro); 
 }
 
 .flash.success {
