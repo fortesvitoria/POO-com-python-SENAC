@@ -4,6 +4,8 @@ class Locker:
         self.__tamanho = tamanho
         self.__status = "Disponível" # Pode ser: Disponível, Ocupado, Manutenção
         self.__reservado_por = None
+        self.__data_reserva = None
+        self.__tempo_restante = None
     
     #Converte o objeto Locker para um dicionário
     def para_dicionario(self):
@@ -11,7 +13,9 @@ class Locker:
             "id": self.__id,
             "tamanho": self.__tamanho,
             "status": self.__status,
-            "reservado_por": self.__reservado_por
+            "reservado_por": self.__reservado_por,
+            "data_reserva": self.__data_reserva,
+            "tempo_restante": self.__tempo_restante
         }
     
     # Adicionamos getters (properties) para acessar os atributos fora da classe
@@ -30,6 +34,14 @@ class Locker:
     @property
     def reservado_por(self):
         return self.__reservado_por
+    
+    @property
+    def data_reserva(self):
+        return self.__data_reserva
+    
+    @property
+    def tempo_restante(self):
+        return self.__tempo_restante
         
     # Método para reservar o locker
     def reservar(self, usuario_id):

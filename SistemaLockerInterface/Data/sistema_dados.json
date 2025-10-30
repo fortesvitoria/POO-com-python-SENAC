@@ -35,15 +35,15 @@
             "nome": "Joao",
             "id": "user03",
             "senha": "0303",
-            "locker_reservado": "L1"
+            "locker_reservado": null
         }
     ],
     "lockers": [
         {
             "id": "L1",
             "tamanho": "P",
-            "status": "Ocupado",
-            "reservado_por": "user03"
+            "status": "Disponível",
+            "reservado_por": null
         },
         {
             "id": "L2",
@@ -54,7 +54,13 @@
         {
             "id": "L3",
             "tamanho": "G",
-            "status": "Manutenção",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L4",
+            "tamanho": "M",
+            "status": "Disponível",
             "reservado_por": null
         }
     ]

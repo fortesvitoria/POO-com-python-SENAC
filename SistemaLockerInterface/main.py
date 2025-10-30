@@ -1,5 +1,3 @@
-# main.py
-
 # 1. Importações Essenciais do Flask
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from Core.sistema import SistemaLocker

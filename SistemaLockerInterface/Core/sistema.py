@@ -2,6 +2,7 @@ import json
 from Models.cls_locker import *
 from Models.cls_usuario import *
 from pathlib import Path 
+from datetime import datetime
 
 class SistemaLocker:
     def __init__(self, arquivo_dados="Data/sistema_dados.json"):
