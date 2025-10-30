@@ -1,24 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Zalando+Sans+SemiExpanded:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
 
-.container-elevador {
-    font-family: "Zalando Sans SemiExpanded", sans-serif;
-    font-weight: 700;
+:root {
+    --fundo-vidro: linear-gradient(13deg,rgba(42, 123, 155, 1) 12%, rgba(219, 252, 255, 1) 74%);
+    --cinza: #607a86;
+    --lado1: linear-gradient(260deg,rgba(223, 234, 240, 1) 0%, rgba(68, 82, 89, 1) 100%);
+    --lado2: linear-gradient(100deg,rgba(223, 234, 240, 1) 0%, rgba(68, 82, 89, 1) 100%);
+
+}
+
+body {
+    background-image: url("../img/parede.jpg");
+    background-repeat: no-repeat; /* Para não repetir a imagem */
+  background-size: cover; /* Para ajustar a imagem ao tamanho do elemento */
+  background-position: center;
+}
+
+.container{
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
 }
 
-.andar{
-    background: radial-gradient(circle,rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 100%);
-    width: 300px;
-    border: 2px solid #000;
-    height: 20px;
-    text-transform: uppercase;
+.visor-elevador {
+    background: var(--fundo-vidro);
+    font-family: "ZCOOL QingKe HuangYou", sans-serif;
+    font-size: 42px;
     text-align: center;
-    padding: 10px;
-    
+    border: 2px solid var(--cinza);
+    width: 80px;
+    border-radius: 5px;
+}
+.container-elevador{
+    display: flex;
+    margin-top: 
+    25px;
 }
 
-.local{
-    background: radial-gradient(circle,rgba(0, 212, 255, 1) 0%, rgba(0, 81, 99, 1) 100%);
+.lado1, .lado2 {
+    width: 200px;
+    height: 600px;
+    border: 2px solid var(--cinza);
+}
+.lado1 {
+ background: var(--lado1);
+ 
+}
+.lado2 {
+    background: var(--lado2);
+    
 }
