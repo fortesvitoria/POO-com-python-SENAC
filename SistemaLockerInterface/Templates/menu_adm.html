@@ -17,7 +17,7 @@
     <main class="">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <div class="messages-container">
+        <div class="messages-container container-mensagem-adm">
             {% for category, message in messages %}
             <div class="flash {{ category }}">{{ message }}</div>
             {% endfor %}

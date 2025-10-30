@@ -191,3 +191,8 @@ th {
 .flash.success {
     background-color: var(--sombra);
 }
+
+.container-mensagem-adm {
+    display: block;
+    min-width: 103%;
+}
