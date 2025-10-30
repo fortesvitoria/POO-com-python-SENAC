@@ -23,7 +23,7 @@ elevador = Elevador()
 # 3. Rota para elevador
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    #incia com mensagem informando que está no térreo
+    #incia com mensagem vazia
     mensagem = ''
 
     # 3.1 Se houver envio de formulario (clique no botao)
