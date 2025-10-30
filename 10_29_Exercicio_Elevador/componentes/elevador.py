@@ -1,4 +1,4 @@
-class Locker:
+class Elevador:
     def __init__(self, andar = 1):
         self.__andar = andar
     
@@ -31,9 +31,4 @@ class Locker:
     def __mensagem_mesmo_andar(self, andar) -> str:
         return f"Você já está no andar {andar}."
 
-elevador = Locker()
-print(elevador.get_andar())
-print(elevador.locomover(4))
-print(elevador.get_andar())
-print(elevador.locomover(15))
 
