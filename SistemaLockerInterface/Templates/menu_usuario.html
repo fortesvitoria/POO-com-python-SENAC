@@ -11,10 +11,11 @@
 <body>
     <header>
         <h1>Sistema Locker</h1>
-        <h3>Olá, {{ usuario.nome }}</h3>
+        <h3>Olá, {{ usuario.nome }}!</h3>
+        <h3>Bem-vindo(a) ao painel do usuário.</h3>
         <p><a href="{{ url_for('logout') }}">Logout</a></p>
     </header>
-    <main  class="container">
+    <main  class="container div-card">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <div class="messages-container">

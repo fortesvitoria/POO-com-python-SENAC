@@ -62,6 +62,48 @@
             "tamanho": "M",
             "status": "Disponível",
             "reservado_por": null
+        },
+        {
+            "id": "L5",
+            "tamanho": "P",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L6",
+            "tamanho": "G",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L7",
+            "tamanho": "G",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L8",
+            "tamanho": "M",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L9",
+            "tamanho": "P",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L10",
+            "tamanho": "M",
+            "status": "Disponível",
+            "reservado_por": null
+        },
+        {
+            "id": "L11",
+            "tamanho": "M",
+            "status": "Disponível",
+            "reservado_por": null
         }
     ]
 }

@@ -11,10 +11,11 @@
 <body>
     <header>
         <h1>Sistema Locker</h1>
-        <h3>Olá, Administrador {{ admin.nome }}</h3>
+        <h3>Olá, {{ admin.nome }}!</h3>
+        <h3>Bem-vindo(a) ao painel do administrador.</h3>
         <p><a href="{{ url_for('logout') }}">Logout</a></p>
     </header>
-    <main class="">
+    <main class="main-adm">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <div class="messages-container container-mensagem-adm">
@@ -25,7 +26,7 @@
         {% endif %}
         {% endwith %}
         <div class="wrapper">
-            <div class="container admin">
+            <div class="container">
                 <h3>Adicionar/remover</h3>
                 <form action="{{ url_for('add_locker') }}" method="post">
                     <label for="">Adicionar locker</label>
@@ -40,7 +41,7 @@
                     <button type="submit" class="btn">Remover</button>
                 </form>
             </div>
-            <div class="container admin">
+            <div class="container">
                 <h3>Manutenção</h3>
                 <form action="{{ url_for('manutencao_locker') }}" method="post">
                     <label for="">Locker em Manutenção</label>
@@ -54,61 +55,106 @@
                     <button type="submit" class="btn">Tornar Disponível</button>
                 </form>
             </div>
-            <div class="lista-lockers container">
-            <h3>Histórico de lockers</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tamanho</th>
-                        <th>Reservado por</th>
-                        <th>Data Reserva</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for locker_id, locker in lockers.items() %}
-                    <tr>
-                        <td>{{ locker.id }}</td>
-                        <td>{{ locker.tamanho }}</td>
-                        <td>{{ locker.reservado_por or 'N/A' }}</td>
-                        <td>{{ locker.data_reserva or 'N/A' }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            <div class="lista-lockers container container-historico-locker">
+                <h3>Histórico de lockers</h3>
+                            <div class="pesquisa">
+                <div class="div-pesquisa">
+                    <label for="pesquisaInput">Pesquisar Histórico:</label>
+                    <input type="text" id="pesquisaInput" class="input-pesquisa" placeholder="Pesquise algo">
+                </div>
+                <div class="div-pesquisa">
+                    <label for="pesquisaHistorico">Pesquisar por:</label>
+                    <select class="select input-pesquisa" id="pesquisaHistorico" name="myDropdownName">
+                        <option value="id">ID</option>
+                        <option value="tamanho">Tamanho</option>
+                        <option value="status">Status</option>
+                        <option value="reservado">Reservado por</option>
+                        <option value="data_reservado">Data de reserva</option>
+                    </select>
+                </div>
+                <div class="div-pesquisa">
+                <button type="submit" class="btn input-pesquisa">Pesquisar</button>
+                </div>
+            </div>
+                <div class="scrollbox-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tamanho</th>
+                                <th>Reservado por</th>
+                                <th>Data Reserva</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for locker_id, locker in lockers.items() %}
+                            <tr>
+                                <td>{{ locker.id }}</td>
+                                <td>{{ locker.tamanho }}</td>
+                                <td>{{ locker.reservado_por or 'N/A' }}</td>
+                                <td>{{ locker.data_reserva or 'N/A' }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <div class="lista-lockers container">
             <h3>Status de todos os lockers</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tamanho</th>
-                        <th>Status</th>
-                        <th>Reservado por</th>
-                        <th>Data Reserva</th>
-                        <th>Tempo restante</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for locker_id, locker in lockers.items() %}
-                    <tr>
-                        <td>{{ locker.id }}</td>
-                        <td>{{ locker.tamanho }}</td>
-                        <td>{{ locker.status }}</td>
-                        <td>{{ locker.reservado_por or 'N/A' }}</td>
-                        <td>{{ locker.data_reserva or 'N/A' }}</td>
-                        <td>{{ locker.tempo_restante or 'N/A' }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="pesquisa">
+                <div class="div-pesquisa">
+                    <label for="pesquisaInput">Pesquisar Locker:</label>
+                    <input type="text" id="pesquisaInput" class="input-pesquisa" placeholder="Pesquise algo">
+                </div>
+                <div class="div-pesquisa">
+                    <label for="pesquisaLocker">Pesquisar por:</label>
+                    <select class="select input-pesquisa" id="pesquisaLocker" name="myDropdownName">
+                      <option value="id">ID</option>
+                        <option value="tamanho">Tamanho</option>
+                        <option value="status">Status</option>
+                        <option value="reservado">Reservado por</option>
+                        <option value="data_reservado">Data de reserva</option>
+                    </select>
+                </div>
+                <div class="div-pesquisa">
+                <button type="submit" class="btn input-pesquisa">Pesquisar</button>
+                </div>
+            </div>
+            <div class="scrollbox-container container-lista-locker">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tamanho</th>
+                            <th>Status</th>
+                            <th>Reservado por</th>
+                            <th>Data Reserva</th>
+                            <th>Tempo restante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for locker_id, locker in lockers.items() %}
+                        <tr>
+                            <td>{{ locker.id }}</td>
+                            <td>{{ locker.tamanho }}</td>
+                            <td>{{ locker.status }}</td>
+                            <td>{{ locker.reservado_por or 'N/A' }}</td>
+                            <td>{{ locker.data_reserva or 'N/A' }}</td>
+                            <td>{{ locker.tempo_restante or 'N/A' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
     <footer>
-        <p>© 2025 Vitória Fortes</p><a href="https://github.com/fortesvitoria/POO-com-python-SENAC/tree/main/SistemaLockerInterface"><img class="icon" src="{{ url_for('static', filename='images/git-icon.svg') }}" alt="Icone do Github com link do projeto"></a>
+        <p>© 2025 Vitória Fortes</p><a
+            href="https://github.com/fortesvitoria/POO-com-python-SENAC/tree/main/SistemaLockerInterface"><img
+                class="icon" src="{{ url_for('static', filename='images/git-icon.svg') }}"
+                alt="Icone do Github com link do projeto"></a>
     </footer>
 </body>
 

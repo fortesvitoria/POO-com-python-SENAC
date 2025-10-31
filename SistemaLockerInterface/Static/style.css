@@ -34,11 +34,7 @@ body {
     border-radius: 20px;
     padding: 20px;
     align-content: center;
-    width: 250px;
-}
-
-.admin {
-    width: 220px;
+    /* width: 250px; */
 }
 
 .wrapper {
@@ -52,7 +48,10 @@ body {
     margin-bottom: 30px;
 }
 
-
+.div-card {
+    width: 320px;
+    padding: 30px;
+}
 
 form {
     display: flex;
@@ -80,13 +79,29 @@ label {
 }
 
 input,
-.btn {
+.btn,
+.select {
     border-radius: 100px;
     border-style: none;
     font-family: var(--fonte-corpo);
     padding: 0.5em;
     margin-bottom: 25px;
     font-size: 16px;
+}
+
+.pesquisa {
+    display: flex;
+}
+
+.div-pesquisa{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin: 0 5px;
+}
+
+.input-pesquisa{
+    width: 220px;
 }
 
 .btn {
@@ -137,6 +152,7 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .lista-lockers h4,
@@ -195,4 +211,27 @@ th {
 .container-mensagem-adm {
     display: block;
     min-width: 103%;
+}
+
+
+.scrollbox-container {
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    padding: 10px;
+    overflow: auto; /*scrollbox*/
+
+}
+
+.container-lista-locker {
+
+    height: 200px;
+}
+
+.container-historico-locker {
+    height: 450px;
+}
+
+.table {
+    width: 100%;
 }
