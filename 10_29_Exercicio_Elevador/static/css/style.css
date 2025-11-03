@@ -15,17 +15,23 @@
 }
 
 body {
-    background-image: url("../img/parede.jpg");
+    background: linear-gradient(90deg,rgba(158, 158, 158, 1) 0%, rgba(237, 237, 237, 1) 19%, rgba(237, 237, 237, 1) 82%, rgba(158, 158, 158, 1) 100%);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     height: 100vh;
-    font-family: var(--font)
+    font-family: var(--font);
+    
+    margin: 0;
+    padding: 0;
 }
 
 .container {
     display: flex;
     justify-content: center;
+    height: 83.2vh;
+    border-bottom: 5px solid var(--cinza-escuro);
+    box-shadow: 2px 2px 20px rgba(2, 2, 2, 2);
 }
 
 .borda-elevador {
