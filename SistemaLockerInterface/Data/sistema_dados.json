@@ -4,13 +4,13 @@
             "nome": "Vitória",
             "id": "user01",
             "senha": "1234",
-            "locker_reservado": null
+            "locker_reservado": "L4"
         },
         {
             "nome": "Ivonei",
             "id": "user02",
             "senha": "abcd",
-            "locker_reservado": null
+            "locker_reservado": "L3"
         },
         {
             "nome": "Laura",
@@ -23,87 +23,102 @@
             "nome": "Marta",
             "id": "user55",
             "senha": "0101",
-            "locker_reservado": null
+            "locker_reservado": "L2"
         },
         {
             "nome": "Mauricio",
             "id": "user45",
             "senha": "2020",
-            "locker_reservado": null
+            "locker_reservado": "L5"
         },
         {
             "nome": "Joao",
             "id": "user03",
             "senha": "0303",
-            "locker_reservado": null
+            "locker_reservado": "L1"
+        },
+        {
+            "nome": "Maria",
+            "id": "user06",
+            "senha": "1234",
+            "locker_reservado": "L6"
+        },
+        {
+            "nome": "Karol",
+            "id": "user07",
+            "senha": "1234",
+            "locker_reservado": "L7"
+        },
+        {
+            "nome": "Gabriel",
+            "id": "user08",
+            "senha": "1234",
+            "locker_reservado": "L8"
         }
     ],
     "lockers": [
         {
             "id": "L1",
             "tamanho": "P",
-            "status": "Disponível",
-            "reservado_por": null
+            "status": "Ocupado",
+            "reservado_por": "user03",
+            "data_reserva": "2025-11-12T15:34:40.443885"
         },
         {
             "id": "L2",
-            "tamanho": "M",
-            "status": "Manutenção",
-            "reservado_por": null
+            "tamanho": "P",
+            "status": "Ocupado",
+            "reservado_por": "user55",
+            "data_reserva": "2025-11-12T15:37:57.110055"
         },
         {
             "id": "L3",
-            "tamanho": "G",
-            "status": "Disponível",
-            "reservado_por": null
+            "tamanho": "M",
+            "status": "Ocupado",
+            "reservado_por": "user02",
+            "data_reserva": "2025-11-12T15:37:39.745756"
         },
         {
             "id": "L4",
             "tamanho": "M",
-            "status": "Disponível",
-            "reservado_por": null
+            "status": "Ocupado",
+            "reservado_por": "user01",
+            "data_reserva": "2025-11-12T15:35:09.925643"
         },
         {
             "id": "L5",
-            "tamanho": "P",
-            "status": "Disponível",
-            "reservado_por": null
+            "tamanho": "G",
+            "status": "Ocupado",
+            "reservado_por": "user45",
+            "data_reserva": "2025-11-12T15:38:36.494893"
         },
         {
             "id": "L6",
             "tamanho": "G",
-            "status": "Disponível",
-            "reservado_por": null
+            "status": "Ocupado",
+            "reservado_por": "user06",
+            "data_reserva": "2025-11-12T15:42:27.559861"
         },
         {
             "id": "L7",
-            "tamanho": "G",
-            "status": "Disponível",
-            "reservado_por": null
+            "tamanho": "P",
+            "status": "Ocupado",
+            "reservado_por": "user07",
+            "data_reserva": "2025-11-12T15:42:38.392148"
         },
         {
             "id": "L8",
             "tamanho": "M",
-            "status": "Disponível",
-            "reservado_por": null
+            "status": "Ocupado",
+            "reservado_por": "user08",
+            "data_reserva": "2025-11-12T15:42:56.393178"
         },
         {
             "id": "L9",
-            "tamanho": "P",
+            "tamanho": "G",
             "status": "Disponível",
-            "reservado_por": null
-        },
-        {
-            "id": "L10",
-            "tamanho": "M",
-            "status": "Disponível",
-            "reservado_por": null
-        },
-        {
-            "id": "L11",
-            "tamanho": "M",
-            "status": "Disponível",
-            "reservado_por": null
+            "reservado_por": null,
+            "data_reserva": null
         }
     ]
 }

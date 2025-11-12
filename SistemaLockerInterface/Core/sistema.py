@@ -45,6 +45,14 @@ class SistemaLocker:
                 locker = Locker(l["id"], l["tamanho"])
                 if l.get("status") == "Ocupado" and l.get("reservado_por"):
                     locker.reservar(l["reservado_por"])
+                    if l.get("data_reserva"):
+                        try:
+                            # Converte a string ISO do JSON para um objeto datetime
+                            data_reserva_obj = datetime.fromisoformat(l["data_reserva"])
+                            locker.definir_data_reserva_e_limite_ao_carregar(data_reserva_obj)
+                        except (ValueError, TypeError):
+                            # Ignora se a data estiver mal formatada ou for nula
+                            pass
                 elif l.get("status") == "Manutenção":
                     locker.definir_status("Manutenção")
                 self.__lockers[l["id"]] = locker

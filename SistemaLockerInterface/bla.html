@@ -1,0 +1,107 @@
+    <form class="pesquisa" action="{{ url_for('menu_adm') }}" method="get">
+        <div class="div-pesquisa">
+            <label for="q_hist_input">Pesquisar Histórico:</label>
+            <input type="text" id="q_hist_input" name="q_hist" class="input-pesquisa" placeholder="Pesquise algo"
+                value="{{ q_hist or '' }}">
+        </div>
+        <div class="div-pesquisa">
+            <label for="field_hist_select">Pesquisar por:</label>
+            <select class="select input-pesquisa" id="field_hist_select" name="field_hist">
+                <option value="id" {% if field_hist=='id' %}selected{% endif %}>ID</option>
+                <option value="tamanho" {% if field_hist=='tamanho' %}selected{% endif %}>Tamanho</option>
+                <option value="reservado_por" {% if field_hist=='reservado_por' %}selected{% endif %}>Reservado por
+                </option>
+                <option value="data_reserva" {% if field_hist=='data_reserva' %}selected{% endif %}>Data de reserva
+                </option>
+            </select>
+        </div>
+        <div class="div-pesquisa">
+            <button type="submit" class="btn input-pesquisa">Pesquisar</button>
+        </div>
+    </form>
+    <div class="scrollbox-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tamanho</th>
+                    <th>Reservado por</th>
+                    <th>Data Reserva</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for locker in lockers_historico %}
+                <tr>
+                    <td>{{ locker.id }}</td>
+                    <td>{{ locker.tamanho }}</td>
+                    <td>{{ locker.reservado_por or 'N/A' }}</td>
+                    <td>{{ locker.data_reserva or 'N/A' }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">Nenhum locker ocupado encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<div class="lista-lockers container">
+    <h3>Status de todos os lockers</h3>
+
+    <form class="pesquisa" action="{{ url_for('menu_adm') }}" method="get">
+        <div class="div-pesquisa">
+            <label for="q_status_input">Pesquisar Locker:</label>
+            <input type="text" id="q_status_input" name="q_status" class="input-pesquisa" placeholder="Pesquise algo"
+                value="{{ q_status or '' }}">
+        </div>
+        <div class="div-pesquisa">
+            <label for="field_status_select">Pesquisar por:</label>
+            <select class="select input-pesquisa" id="field_status_select" name="field_status">
+                <option value="id" {% if field_status=='id' %}selected{% endif %}>ID</option>
+                <option value="tamanho" {% if field_status=='tamanho' %}selected{% endif %}>Tamanho</option>
+                <option value="status" {% if field_status=='status' %}selected{% endif %}>Status</option>
+                <option value="reservado_por" {% if field_status=='reservado_por' %}selected{% endif %}>Reservado por
+                </option>
+                <option value="data_reserva" {% if field_status=='data_reserva' %}selected{% endif %}>Data de reserva
+                </option>
+            </select>
+        </div>
+        <div class="div-pesquisa">
+            <button type="submit" class="btn input-pesquisa">Pesquisar</button>
+        </div>
+    </form>
+    <div class="scrollbox-container container-lista-locker">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tamanho</th>
+                    <th>Status</th>
+                    <th>Reservado por</th>
+                    <th>Data Reserva</th>
+                    <th>Tempo restante</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for locker in lockers_status %}
+                <tr>
+                    <td>{{ locker.id }}</td>
+                    <td>{{ locker.tamanho }}</td>
+                    <td>{{ locker.status }}</td>
+                    <td>{{ locker.reservado_por or 'N/A' }}</td>
+                    <td>{{ locker.data_reserva or 'N/A' }}</td>
+                    <td>{{ locker.tempo_restante or 'N/A' }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6">Nenhum locker encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</main>

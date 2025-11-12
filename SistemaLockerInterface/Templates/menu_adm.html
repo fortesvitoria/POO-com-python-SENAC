@@ -10,12 +10,16 @@
 
 <body>
     <header>
+        <!-- Cabeçalho - Mensagem boas vindas -->
         <h1>Sistema Locker</h1>
         <h3>Olá, {{ admin.nome }}!</h3>
         <h3>Bem-vindo(a) ao painel do administrador.</h3>
         <p><a href="{{ url_for('logout') }}">Logout</a></p>
     </header>
+
+    <!-- Inicio main -->
     <main class="main-adm">
+        <!-- Mensagens temporarias -->
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <div class="messages-container container-mensagem-adm">
@@ -25,7 +29,10 @@
         </div>
         {% endif %}
         {% endwith %}
+
         <div class="wrapper">
+
+            <!-- Container para adicionar ou remover locker -->
             <div class="container">
                 <h3>Adicionar/remover</h3>
                 <form action="{{ url_for('add_locker') }}" method="post">
@@ -41,6 +48,7 @@
                     <button type="submit" class="btn">Remover</button>
                 </form>
             </div>
+            <!-- Container para colocar ou tirar um locker da manutenção -->
             <div class="container">
                 <h3>Manutenção</h3>
                 <form action="{{ url_for('manutencao_locker') }}" method="post">
@@ -55,27 +63,32 @@
                     <button type="submit" class="btn">Tornar Disponível</button>
                 </form>
             </div>
+            <!-- Container com historico de lockers -->
             <div class="lista-lockers container container-historico-locker">
                 <h3>Histórico de lockers</h3>
-                            <div class="pesquisa">
-                <div class="div-pesquisa">
-                    <label for="pesquisaInput">Pesquisar Histórico:</label>
-                    <input type="text" id="pesquisaInput" class="input-pesquisa" placeholder="Pesquise algo">
-                </div>
-                <div class="div-pesquisa">
-                    <label for="pesquisaHistorico">Pesquisar por:</label>
-                    <select class="select input-pesquisa" id="pesquisaHistorico" name="myDropdownName">
-                        <option value="id">ID</option>
-                        <option value="tamanho">Tamanho</option>
-                        <option value="status">Status</option>
-                        <option value="reservado">Reservado por</option>
-                        <option value="data_reservado">Data de reserva</option>
-                    </select>
-                </div>
-                <div class="div-pesquisa">
-                <button type="submit" class="btn input-pesquisa">Pesquisar</button>
-                </div>
-            </div>
+                <form class="pesquisa" action="{{ url_for('menu_adm') }}" method="get">
+                    <div class="div-pesquisa">
+                        <label for="q_hist_input">Pesquisar Histórico:</label>
+                        <input type="text" id="q_hist_input" name="q_hist" class="input-pesquisa"
+                            placeholder="Pesquise algo" value="{{ q_hist or '' }}">
+                    </div>
+                    <div class="div-pesquisa">
+                        <label for="field_hist_select">Pesquisar por:</label>
+                        <select class="select input-pesquisa" id="field_hist_select" name="field_hist">
+                            <option value="id" {% if field_hist=='id' %}selected{% endif %}>ID</option>
+                            <option value="tamanho" {% if field_hist=='tamanho' %}selected{% endif %}>Tamanho</option>
+                            <option value="reservado_por" {% if field_hist=='reservado_por' %}selected{% endif %}>
+                                Reservado por
+                            </option>
+                            <option value="data_reserva" {% if field_hist=='data_reserva' %}selected{% endif %}>Data de
+                                reserva
+                            </option>
+                        </select>
+                    </div>
+                    <div class="div-pesquisa">
+                        <button type="submit" class="btn input-pesquisa">Pesquisar</button>
+                    </div>
+                </form>
                 <div class="scrollbox-container">
                     <table class="table">
                         <thead>
@@ -87,12 +100,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for locker_id, locker in lockers.items() %}
+                            {% for locker in lockers_historico %}
                             <tr>
                                 <td>{{ locker.id }}</td>
                                 <td>{{ locker.tamanho }}</td>
                                 <td>{{ locker.reservado_por or 'N/A' }}</td>
                                 <td>{{ locker.data_reserva or 'N/A' }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="4">Nenhum locker ocupado encontrado.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -101,27 +118,33 @@
             </div>
         </div>
 
+        <!-- Container com status dos lockers -->
         <div class="lista-lockers container">
             <h3>Status de todos os lockers</h3>
-            <div class="pesquisa">
+            <form class="pesquisa" action="{{ url_for('menu_adm') }}" method="get">
                 <div class="div-pesquisa">
-                    <label for="pesquisaInput">Pesquisar Locker:</label>
-                    <input type="text" id="pesquisaInput" class="input-pesquisa" placeholder="Pesquise algo">
+                    <label for="q_status_input">Pesquisar Locker:</label>
+                    <input type="text" id="q_status_input" name="q_status" class="input-pesquisa"
+                        placeholder="Pesquise algo" value="{{ q_status or '' }}">
                 </div>
                 <div class="div-pesquisa">
-                    <label for="pesquisaLocker">Pesquisar por:</label>
-                    <select class="select input-pesquisa" id="pesquisaLocker" name="myDropdownName">
-                      <option value="id">ID</option>
-                        <option value="tamanho">Tamanho</option>
-                        <option value="status">Status</option>
-                        <option value="reservado">Reservado por</option>
-                        <option value="data_reservado">Data de reserva</option>
+                    <label for="field_status_select">Pesquisar por:</label>
+                    <select class="select input-pesquisa" id="field_status_select" name="field_status">
+                        <option value="id" {% if field_status=='id' %}selected{% endif %}>ID</option>
+                        <option value="tamanho" {% if field_status=='tamanho' %}selected{% endif %}>Tamanho</option>
+                        <option value="status" {% if field_status=='status' %}selected{% endif %}>Status</option>
+                        <option value="reservado_por" {% if field_status=='reservado_por' %}selected{% endif %}>
+                            Reservado por
+                        </option>
+                        <option value="data_reserva" {% if field_status=='data_reserva' %}selected{% endif %}>Data de
+                            reserva
+                        </option>
                     </select>
                 </div>
                 <div class="div-pesquisa">
-                <button type="submit" class="btn input-pesquisa">Pesquisar</button>
+                    <button type="submit" class="btn input-pesquisa">Pesquisar</button>
                 </div>
-            </div>
+            </form>
             <div class="scrollbox-container container-lista-locker">
                 <table class="table">
                     <thead>
@@ -135,7 +158,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for locker_id, locker in lockers.items() %}
+                        {% for locker in lockers_status %}
                         <tr>
                             <td>{{ locker.id }}</td>
                             <td>{{ locker.tamanho }}</td>
@@ -144,12 +167,18 @@
                             <td>{{ locker.data_reserva or 'N/A' }}</td>
                             <td>{{ locker.tempo_restante or 'N/A' }}</td>
                         </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6">Nenhum locker encontrado.</td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
+
+    <!-- Rodapé -->
     <footer>
         <p>© 2025 Vitória Fortes</p><a
             href="https://github.com/fortesvitoria/POO-com-python-SENAC/tree/main/SistemaLockerInterface"><img

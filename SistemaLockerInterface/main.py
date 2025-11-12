@@ -112,8 +112,50 @@ def menu_adm():
     if not isinstance(usuario, Administrador):
         flash('Acesso negado.', 'danger')
         return redirect(url_for('menu_usuario'))
+    
+    #logica para busca
+    q_status = request.args.get('q_status', '').lower()
+    field_status = request.args.get('field_status', 'id')
 
-    return render_template('menu_adm.html', admin=usuario, lockers=sistema.lockers)
+    q_hist = request.args.get('q_hist', '').lower()
+    field_hist = request.args.get('field_hist', 'id')
+
+    todos_lockers = list(sistema.lockers.values())
+    lockers_status = []
+    lockers_historico = []
+
+    # Filtrar lista de "Status" (todos os lockers)
+    if q_status:
+        for locker in todos_lockers:
+            # Pega o valor do atributo (ex: locker.id, locker.status)
+            # O 'or ""' evita erros se o valor for None
+            valor = str(getattr(locker, field_status, '') or '').lower()
+            if q_status in valor:
+                lockers_status.append(locker)
+    else:
+        lockers_status = todos_lockers # Se não houver busca, mostra todos
+
+    # Filtrar lista de "Histórico" (apenas ocupados)
+    lockers_ocupados = [l for l in todos_lockers if l.status == "Ocupado"]
+    if q_hist:
+        for locker in lockers_ocupados:
+            valor = str(getattr(locker, field_hist, '') or '').lower()
+            if q_hist in valor:
+                lockers_historico.append(locker)
+    else:
+        lockers_historico = lockers_ocupados # Se não houver busca, mostra todos os ocupados
+
+    # Renderizar o template com as listas filtradas e os termos da busca
+    return render_template(
+        'menu_adm.html', 
+        admin=usuario, 
+        lockers_status=lockers_status,       # Lista para a tabela "Status"
+        lockers_historico=lockers_historico, # Lista para a tabela "Histórico"
+        q_status=q_status,                   # Termo buscado em "Status"
+        field_status=field_status,           # Campo buscado em "Status"
+        q_hist=q_hist,                       # Termo buscado em "Histórico"
+        field_hist=field_hist                # Campo buscado em "Histórico"
+    )
 
 # 11. Rotas para Ações do Administrador
 @app.route('/add_locker', methods=['POST'])
