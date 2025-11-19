@@ -6,7 +6,8 @@ from datetime import datetime
 
 class SistemaLocker:
     def __init__(self, arquivo_dados="Data/sistema_dados.json"):
-        # Dicionários para armazenar os objetos de usuário e locker em memória, usando o ID como chave 
+        # COMPOSIÇÃO: O Sistema possui dicionários de usuários e lockers.
+        # Os dicionários armazenam os objetos de usuário e locker em memória, usando o ID como chave 
         self.__usuarios = {} 
         self.__lockers = {} 
         
@@ -21,6 +22,7 @@ class SistemaLocker:
 
         self.carregar_dados() #chamando metodo
 
+    # PERSISTÊNCIA
     #metodos para ler o arquivo JSON e criar objetos na memória
     def carregar_dados(self):
         try:
@@ -62,15 +64,17 @@ class SistemaLocker:
         except json.JSONDecodeError:
             print(f"Erro ao ler o arquivo {self.__arquivo_dados}. Verifique o formato do JSON.")
     
+ 
     #Metodo para salvar dados
     def salvar_dados(self):
+        # SERIALIZAÇÃO 
         # Cria um dicionário que será a estrutura do arquivo JSON.
         dados_para_salvar = {
             # Usa "list comprehension", que serve como um .append, mas mais compacto, para converter cada objeto Usuario para um dicionário, usando o metodo "para_dicionario"
             "usuarios": [usuario.para_dicionario() for usuario in self.__usuarios.values()],
             "lockers": [locker.para_dicionario() for locker in self.__lockers.values()]
         }
-
+        # PERSISTÊNCIA
         # Abre o arquivo JSON em modo de escrita ("w - write"), apagando o conteúdo anterior.
         with open(self.__arquivo_dados, "w", encoding="utf-8") as f:
             # json.dump escreve o dicionário no arquivo

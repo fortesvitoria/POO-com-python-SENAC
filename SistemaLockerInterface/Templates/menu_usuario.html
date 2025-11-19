@@ -17,54 +17,63 @@
     </header>
     <main class="wrapper-user">
         <div class="container div-card">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="messages-container">
-            {% for category, message in messages %}
-            <div class="flash {{ category }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
-
-        <div class="resultado">
-            {% if usuario.locker_reservado %}
-            <p>Você possui o locker <span>{{ usuario.locker_reservado }}</span> reservado.</p>
-            {% else %}
-            <p>Você não possui lockers reservados.</p>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="messages-container">
+                {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
             {% endif %}
-        </div>
+            {% endwith %}
 
-        {% if usuario.locker_reservado %}
-        <form action="{{ url_for('liberar_locker') }}" method="post">
-            <button type="submit" class="btn">Liberar Meu Locker</button>
-        </form>
-        {% else %}
-        <form action="{{ url_for('reservar_locker') }}" method="post">
-            <label for="id-reserva">Reservar um Locker</label>
-            <input type="text" id="id-reserva" name="id-reserva" placeholder="ID do Locker" required>
-            <button type="submit" class="btn">Reservar Locker</button>
-        </form>
-        {% endif %}
+            <div class="resultado">
+                {% if usuario.locker_reservado %}
+                <p>Você possui o locker <span>{{ usuario.locker_reservado }}</span> reservado.</p>
+                {% else %}
+                <p>Você não possui lockers reservados.</p>
+                {% endif %}
+
+                {% if meu_locker %}
+                <p>Data e hora da reserva:</p>
+                <p>{{ meu_locker.data_reserva or 'N/A' }}</p>
+                <p> Tempo restante: {{ meu_locker.tempo_restante or 'N/A' }}</p>
+                {% endif %}
+            </div>
+
+            {% if usuario.locker_reservado %}
+            <form action="{{ url_for('liberar_locker') }}" method="post">
+                <button type="submit" class="btn">Liberar Meu Locker</button>
+            </form>
+            {% else %}
+            <form action="{{ url_for('reservar_locker') }}" method="post">
+                <label for="id-reserva">Reservar um Locker</label>
+                <input type="text" id="id-reserva" name="id-reserva" placeholder="ID do Locker" required>
+                <button type="submit" class="btn">Reservar Locker</button>
+            </form>
+            {% endif %}
 
         </div>
         <div class="container">
 
-        <div class="lista-lockers">
-            <h4>Lockers Disponíveis:</h4>
-            <ul>
-                {% for locker in lockers %}
-                <li><span>{{ locker.id }}</span> (Tamanho: {{ locker.tamanho }})</li>
-                {% else %}
-                <li>Não há lockers disponíveis.</li>
-                {% endfor %}
-            </ul>
-        </div>
+            <div class="lista-lockers">
+                <h4>Lockers Disponíveis:</h4>
+                <ul>
+                    {% for locker in lockers %}
+                    <li><span>{{ locker.id }}</span> (Tamanho: {{ locker.tamanho }})</li>
+                    {% else %}
+                    <li>Não há lockers disponíveis.</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
 
     </main>
     <footer>
-        <p>© 2025 Vitória Fortes</p><a href="https://github.com/fortesvitoria/POO-com-python-SENAC/tree/main/SistemaLockerInterface"><img class="icon" src="{{ url_for('static', filename='images/git-icon.svg') }}" alt="Icone do Github com link do projeto"></a>
+        <p>© 2025 Vitória Fortes</p><a
+            href="https://github.com/fortesvitoria/POO-com-python-SENAC/tree/main/SistemaLockerInterface"><img
+                class="icon" src="{{ url_for('static', filename='images/git-icon.svg') }}"
+                alt="Icone do Github com link do projeto"></a>
     </footer>
 </body>
 

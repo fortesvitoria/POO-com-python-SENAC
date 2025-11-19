@@ -1,11 +1,12 @@
 class Usuario:
     def __init__(self, nome, usuario_id, senha):
+        # ENCAPSULAMENTO: Atributos privados
         self.__nome = nome
         self.__id = usuario_id
         self.__senha = senha
         self.__locker_reservado = None
         
-    #@property ajuda a manter o encapsulamento, progetendo os dados, assim acessamos o usuario como usario.nome, e não como usuario.get_nome(), o que mantem o código mais seguro. Ela também garante a imutabilidade, tornando os atributos somente para leitura, prevenindo modificações.
+    #ENCAPSULAMENTO: @property ajuda a manter o encapsulamento, progetendo os dados, assim acessamos o usuario como usario.nome, e não como usuario.get_nome(), o que mantem o código mais seguro. Ela também garante a imutabilidade, tornando os atributos somente para leitura, prevenindo modificações.
     @property
     def nome(self):
         return self.__nome
@@ -19,7 +20,8 @@ class Usuario:
     def locker_reservado(self):
         return self.__locker_reservado
         
-    #Método para verificar se a senha está correta. Retorna True se forem iguais, e False caso contrário.
+    # Método para verificar se a senha está correta. Retorna True se forem iguais, e False caso contrário.
+    # Entrada uma string, saida bool (T/F)
     def valida_senha(self, senha):
         return self.__senha == senha
     
@@ -31,7 +33,8 @@ class Usuario:
     def liberar_locker_reservado(self):
         self.__locker_reservado = None
     
-    #Método para converter o objeto Usuario para um dicionário.
+    # SERIALIZAÇÃO: Método para converter o objeto Usuario para um dicionário (converte em JSON).
+    # Saida: Dicionário Python
     def para_dicionario(self):
         return {
             "nome": self.__nome,
@@ -40,13 +43,13 @@ class Usuario:
             "locker_reservado": self.__locker_reservado
         }
 
-# A classe Administrador herda da classe Usuario. Herda todas as caracteristicas e possui nova: is_admin, que inicia como true
+# HERANÇA: A classe Administrador herda da classe Usuario. Herda todas as caracteristicas e possui nova: is_admin, que inicia como true
 class Administrador(Usuario):
     def __init__(self, nome, usuario_id, senha):
         super().__init__(nome, usuario_id, senha)
         self.__is_admin = True
 
-#Método para converter o objeto Administrador para um dicionário (sobrescrevendo o da classe pai)
+# POLIMORFISMO (Sobrescrita): Método para converter o objeto Administrador para um dicionário (sobrescrevendo o da classe pai), ele existe na classe pai, mas aqui ele se comporta de forma diferente: adicionamos o campo 'is_admin'.
     def para_dicionario(self):
         # Pega o dicionário da classe pai (Usuario)
         dados = super().para_dicionario()

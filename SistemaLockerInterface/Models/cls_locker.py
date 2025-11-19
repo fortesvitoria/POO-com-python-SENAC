@@ -9,7 +9,7 @@ class Locker:
         self.__data_reserva = None
         self.__tempo_maximo_timedelta = None
     
-    #Converte o objeto Locker para um dicionário
+    # SERIALIZAÇÃO: Método para converter o objeto Locker para um dicionário (converte em JSON).
     def para_dicionario(self):
         return {
             "id": self.__id,
@@ -19,7 +19,7 @@ class Locker:
             "data_reserva": self.__data_reserva.isoformat() if self.__data_reserva else None
         }
     
-    # Adicionamos getters (properties) para acessar os atributos fora da classe
+    #ENCAPSULAMENTO: Adicionamos getters (properties) para acessar os atributos fora da classe
     @property
     def id(self):
         return self.__id
@@ -42,6 +42,8 @@ class Locker:
             return self.__data_reserva.strftime('%d/%m/%Y %H:%M:%S')
         return None
     
+    # ABSTRAÇÃO: Esconde a complexidade do cálculo de datas do resto do sistema.
+    # Saida: String formatada ou "Expirado" ou None
     @property
     def tempo_restante(self):
         if self.__status != "Ocupado" or not self.__data_reserva or not self.__tempo_maximo_timedelta:
@@ -52,11 +54,11 @@ class Locker:
         restante = data_limite - datetime.now()
 
         if restante.total_seconds() <= 0:
-            return "Expirado"
+            return "Expirado" #saida
         
         # Formata o tempo restante para (HH:MM:SS)
         # str(restante) vem como "HH:MM:SS.microseconds"
-        return str(restante).split('.')[0]
+        return str(restante).split('.')[0] #saida
         
     # Método para reservar o locker
     def reservar(self, usuario_id):
@@ -99,7 +101,7 @@ class Locker:
         return False
 
     def definir_data_reserva_e_limite_ao_carregar(self, data_reserva_obj):
-        """ Usado pelo sistema.py ao carregar dados do JSON """
+       # Usado pelo sistema.py ao carregar dados do JSON 
         self.__data_reserva = data_reserva_obj
         # Define o tempo máximo (necessário para calcular o tempo restante)
         if self.__tamanho == 'P':

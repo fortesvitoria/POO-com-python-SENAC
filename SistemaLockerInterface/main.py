@@ -1,4 +1,4 @@
-# 1. Importações Essenciais do Flask
+# 1. Importações Essenciais
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from Core.sistema import SistemaLocker
 from Models.cls_usuario import Administrador
@@ -65,9 +65,13 @@ def menu_usuario():
     usuario_id = session['usuario_id']
     usuario = sistema.usuarios.get(usuario_id)
 
+    locker_do_usuario = None
+    if usuario.locker_reservado:
+        locker_do_usuario = sistema.lockers.get(usuario.locker_reservado)
+
     lockers_disponiveis = [l for l in sistema.lockers.values()  if l.status == 'Disponível']
 
-    return render_template('menu_usuario.html', usuario=usuario, lockers=lockers_disponiveis)
+    return render_template('menu_usuario.html', usuario=usuario, lockers=lockers_disponiveis, meu_locker = locker_do_usuario)
 
 # 8. Rota para Reservar Locker
 @app.route('/reservar_locker', methods=['POST'])

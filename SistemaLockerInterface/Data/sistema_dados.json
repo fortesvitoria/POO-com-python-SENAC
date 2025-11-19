@@ -35,7 +35,7 @@
             "nome": "Joao",
             "id": "user03",
             "senha": "0303",
-            "locker_reservado": "L1"
+            "locker_reservado": null
         },
         {
             "nome": "Maria",
@@ -60,9 +60,9 @@
         {
             "id": "L1",
             "tamanho": "P",
-            "status": "Ocupado",
-            "reservado_por": "user03",
-            "data_reserva": "2025-11-12T15:34:40.443885"
+            "status": "Disponível",
+            "reservado_por": null,
+            "data_reserva": null
         },
         {
             "id": "L2",
