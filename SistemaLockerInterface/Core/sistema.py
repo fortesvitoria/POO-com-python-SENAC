@@ -22,8 +22,7 @@ class SistemaLocker:
 
         self.carregar_dados() #chamando metodo
 
-    # PERSISTÊNCIA
-    #metodos para ler o arquivo JSON e criar objetos na memória
+    # metodos para ler o arquivo JSON e criar objetos na memória
     def carregar_dados(self):
         try:
             with open(self.__arquivo_dados, "r", encoding="utf-8") as f:
@@ -74,7 +73,7 @@ class SistemaLocker:
             "usuarios": [usuario.para_dicionario() for usuario in self.__usuarios.values()],
             "lockers": [locker.para_dicionario() for locker in self.__lockers.values()]
         }
-        # PERSISTÊNCIA
+        # PERSISTÊNCIA - salva o arrquivo json em memoria
         # Abre o arquivo JSON em modo de escrita ("w - write"), apagando o conteúdo anterior.
         with open(self.__arquivo_dados, "w", encoding="utf-8") as f:
             # json.dump escreve o dicionário no arquivo

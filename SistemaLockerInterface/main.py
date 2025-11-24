@@ -153,12 +153,12 @@ def menu_adm():
     return render_template(
         'menu_adm.html', 
         admin=usuario, 
-        lockers_status=lockers_status,       # Lista para a tabela "Status"
-        lockers_historico=lockers_historico, # Lista para a tabela "Histórico"
-        q_status=q_status,                   # Termo buscado em "Status"
-        field_status=field_status,           # Campo buscado em "Status"
-        q_hist=q_hist,                       # Termo buscado em "Histórico"
-        field_hist=field_hist                # Campo buscado em "Histórico"
+        lockers_status=lockers_status,       
+        lockers_historico=lockers_historico, 
+        q_status=q_status,                   
+        field_status=field_status,           
+        q_hist=q_hist,                       
+        field_hist=field_hist                
     )
 
 # 11. Rotas para Ações do Administrador

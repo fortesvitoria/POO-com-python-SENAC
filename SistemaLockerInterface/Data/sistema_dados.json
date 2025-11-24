@@ -10,7 +10,7 @@
             "nome": "Ivonei",
             "id": "user02",
             "senha": "abcd",
-            "locker_reservado": "L3"
+            "locker_reservado": null
         },
         {
             "nome": "Laura",
@@ -35,7 +35,7 @@
             "nome": "Joao",
             "id": "user03",
             "senha": "0303",
-            "locker_reservado": null
+            "locker_reservado": "L3"
         },
         {
             "nome": "Maria",
@@ -47,7 +47,7 @@
             "nome": "Karol",
             "id": "user07",
             "senha": "1234",
-            "locker_reservado": "L7"
+            "locker_reservado": null
         },
         {
             "nome": "Gabriel",
@@ -75,8 +75,8 @@
             "id": "L3",
             "tamanho": "M",
             "status": "Ocupado",
-            "reservado_por": "user02",
-            "data_reserva": "2025-11-12T15:37:39.745756"
+            "reservado_por": "user03",
+            "data_reserva": "2025-11-24T20:04:20.569702"
         },
         {
             "id": "L4",
@@ -102,9 +102,9 @@
         {
             "id": "L7",
             "tamanho": "P",
-            "status": "Ocupado",
-            "reservado_por": "user07",
-            "data_reserva": "2025-11-12T15:42:38.392148"
+            "status": "Disponível",
+            "reservado_por": null,
+            "data_reserva": null
         },
         {
             "id": "L8",
